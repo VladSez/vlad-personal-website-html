@@ -1,7 +1,7 @@
 # Useful info
 
 ## Github Online Editor
-https://github.dev/VladSez/html-vercel-simple/blob/main/index.html
+https://github.dev/VladSez/html-cv/blob/main/index.html
 
 ## Vercel
 https://vercel.com/vladsazon27s-projects/html-cv

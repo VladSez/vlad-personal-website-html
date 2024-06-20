@@ -9,6 +9,9 @@ https://vercel.com/vladsazon27s-projects/html-cv
 ## Prod URL
 https://vldszn-cv.vercel.app
 
+## OG Image generation
+https://dynamic-og-image-generator.vercel.app
+
 ## Repo URL
 https://github.com/VladSez/html-cv
 

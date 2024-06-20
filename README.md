@@ -7,7 +7,7 @@ https://github.dev/VladSez/html-cv/blob/main/index.html
 https://vercel.com/vladsazon27s-projects/html-cv
 
 ## Prod URL
-https://html-cv-gray.vercel.app
+https://vldszn-cv.vercel.app
 
 ## Repo URL
 https://github.com/VladSez/html-cv

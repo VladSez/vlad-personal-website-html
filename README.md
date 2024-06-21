@@ -9,6 +9,9 @@ https://vercel.com/vladsazon27s-projects/html-cv
 ## Prod URL
 https://vldszn-cv.vercel.app
 
+## Link Management
+https://app.dub.co/vlad
+
 ## OG Image generation
 https://dynamic-og-image-generator.vercel.app
 

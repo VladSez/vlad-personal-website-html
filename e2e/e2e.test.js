@@ -4,6 +4,16 @@ import { PromisePool } from "@supercharge/promise-pool";
 
 const BASE_URL = process.env.BASE_URL || `https://vldszn-cv.vercel.app`;
 
+console.log("playwright e2e test", { BASE_URL });
+
+// https://vercel.com/docs/security/deployment-protection/methods-to-bypass-deployment-protection/protection-bypass-automation
+test.use({
+  // @ts-ignore
+  extraHTTPHeaders: {
+    "x-vercel-protection-bypass": process.env.VERCEL_BYPASS_TOKEN,
+  },
+});
+
 test("main page", async ({ page }) => {
   // Go to the main page of the site (/index.html)
   await page.goto(BASE_URL);

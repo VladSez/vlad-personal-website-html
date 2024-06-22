@@ -1,0 +1,44 @@
+name: 🎭 Playwright E2E
+on:
+  deployment_status:
+
+jobs:
+  e2e:
+    # https://vercel.com/guides/how-can-i-run-end-to-end-tests-after-my-vercel-preview-deployment
+    if: github.event_name == 'deployment_status' && github.event.deployment_status.state == 'success'
+    timeout-minutes: 6
+    runs-on: ubuntu-latest
+    env:
+      VERCEL_AUTOMATION_BYPASS_SECRET: ${{ secrets.VERCEL_AUTOMATION_BYPASS_SECRET }}
+    steps:
+      - run: echo "Vercel preview URL - ${{github.event.deployment_status.environment_url}}"
+
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v3
+        name: 📦 Setup pnpm
+        with:
+          version: 8
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: lts/*
+          cache: "pnpm"
+
+      - name: 🚚 Install dependencies
+        run: pnpm install
+
+      - name: Install Playwright Browsers
+        run: pnpm exec playwright install --with-deps chromium
+
+      - name: Run Playwright tests
+        run: pnpm exec playwright test
+        env:
+          BASE_URL: ${{ github.event.deployment_status.environment_url }}
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: playwright-report
+          path: playwright-report/
+          retention-days: 5

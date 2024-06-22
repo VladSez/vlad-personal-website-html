@@ -4,9 +4,6 @@ import { PromisePool } from "@supercharge/promise-pool";
 
 const BASE_URL = process.env.BASE_URL || `https://vldszn-cv.vercel.app`;
 
-console.log("e2e test", {
-  "x-vercel-protection-bypass": process.env.VERCEL_AUTOMATION_BYPASS_SECRET,
-});
 // https://vercel.com/docs/security/deployment-protection/methods-to-bypass-deployment-protection/protection-bypass-automation
 test.use({
   // @ts-ignore

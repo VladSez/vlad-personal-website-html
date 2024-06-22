@@ -5,6 +5,9 @@ settings:
   excludeLinksFromLockfile: false
 
 dependencies:
+  '@supercharge/promise-pool':
+    specifier: 3.2.0
+    version: 3.2.0
   '@vercel/edge':
     specifier: 0.1.2
     version: 0.1.2
@@ -26,6 +29,11 @@ packages:
     dependencies:
       playwright: 1.44.1
     dev: true
+
+  /@supercharge/promise-pool@3.2.0:
+    resolution: {integrity: sha512-pj0cAALblTZBPtMltWOlZTQSLT07jIaFNeM8TWoJD1cQMgDB9mcMlVMoetiB35OzNJpqQ2b+QEtwiR9f20mADg==}
+    engines: {node: '>=8'}
+    dev: false
 
   /@types/node@20.14.8:
     resolution: {integrity: sha512-DO+2/jZinXfROG7j7WKFn/3C6nFwxy2lLpgLjEXJz+0XKphZlTLJ14mo8Vfg8X5BWN6XjyESXq+LcYdT7tR3bA==}

@@ -1,14 +1,16 @@
-name: Playwright Tests
+name: 🎭 Playwright E2E
 on:
-  push:
-    branches: [main, master]
-  pull_request:
-    branches: [main, master]
+  deployment_status:
+
 jobs:
-  test:
+  e2e:
+    # https://vercel.com/guides/how-can-i-run-end-to-end-tests-after-my-vercel-preview-deployment
+    if: github.event_name == 'deployment_status' && github.event.deployment_status.state == 'success'
     timeout-minutes: 6
     runs-on: ubuntu-latest
     steps:
+      - run: echo "Vercel preview URL - ${{github.event.deployment_status.environment_url}}"
+
       - uses: actions/checkout@v4
 
       - uses: pnpm/action-setup@v3
@@ -29,6 +31,8 @@ jobs:
 
       - name: Run Playwright tests
         run: pnpm exec playwright test
+        env:
+          BASE_URL: ${{ github.event.deployment_status.environment_url }}
 
       - uses: actions/upload-artifact@v4
         if: always()

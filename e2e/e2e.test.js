@@ -1,6 +1,7 @@
 // @ts-check
 import { test, expect } from "@playwright/test";
 import { PromisePool } from "@supercharge/promise-pool";
+import "dotenv/config";
 
 const BASE_URL = process.env.BASE_URL || `https://vldszn-cv.vercel.app`;
 

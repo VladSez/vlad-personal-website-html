@@ -143,6 +143,8 @@ test("links page", async ({ page }) => {
     page.getByRole("heading", { name: "Programming" })
   ).toBeVisible();
 
+  await expect(page.getByRole("heading", { name: "Github" })).toBeVisible();
+
   await expect(page.getByRole("heading", { name: "Tools" })).toBeVisible();
 
   await expect(page.getByRole("heading", { name: "etc" })).toBeVisible();
@@ -171,7 +173,7 @@ test("all links are valid on /links.html", async ({ page, request }) => {
   const t1 = performance.now();
 
   // https://www.npmjs.com/package/@supercharge/promise-pool
-  const { results, errors } = await PromisePool.withConcurrency(10)
+  const { results, errors } = await PromisePool.withConcurrency(12)
     .for(allURLsOnPage)
     .withTaskTimeout(15000) // milliseconds (15 seconds)
     .process(async (url, index) => {
@@ -197,16 +199,23 @@ test("all links are valid on /links.html", async ({ page, request }) => {
   const status404 = results.filter((r) => r.status === 404);
   const statusOk = results.filter((r) => r.status === 200);
 
+  const duplicateURLs = allURLsOnPage.filter(
+    (url, index, self) => self.indexOf(url) !== index
+  );
+
   console.log({
     errors,
     statusNot200,
     linksProcessedCount: results?.length,
     allURLsOnPage: allURLsOnPage.length,
+    duplicateURLs,
     timeToCheckAllLinks: t2 - t1,
   });
 
   expect(errors?.length).toBe(0);
   expect(status404?.length).toBe(0);
+  expect(duplicateURLs?.length).toBe(0);
+
   expect(statusOk?.length).toBeGreaterThan(0);
 });
 

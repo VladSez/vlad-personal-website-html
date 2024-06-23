@@ -139,15 +139,62 @@ test("links page", async ({ page }) => {
 
   await expect(page.getByRole("heading", { name: "Links" })).toBeVisible();
 
+  // check table of contents
   await expect(
-    page.getByRole("heading", { name: "Programming" })
+    page.getByRole("heading", { name: "Table of Contents" })
   ).toBeVisible();
 
-  await expect(page.getByRole("heading", { name: "Github" })).toBeVisible();
+  const tableOfContents = page.getByTestId("table-of-contents");
+  await expect(tableOfContents).toBeVisible();
 
-  await expect(page.getByRole("heading", { name: "Tools" })).toBeVisible();
+  const programmingLink = tableOfContents.getByRole("link", {
+    name: "programming",
+  });
+  await expect(programmingLink).toBeVisible();
+  await expect(programmingLink).toHaveAttribute("href", "#programming");
 
-  await expect(page.getByRole("heading", { name: "etc" })).toBeVisible();
+  await programmingLink.click();
+  expect(page.url()).toBe(`${BASE_URL}/links.html#programming`);
+
+  const githubLink = tableOfContents.getByRole("link", { name: "github" });
+  await expect(githubLink).toBeVisible();
+  await expect(githubLink).toHaveAttribute("href", "#github");
+
+  const toolsLink = tableOfContents.getByRole("link", { name: "tools" });
+  await expect(toolsLink).toBeVisible();
+  await expect(toolsLink).toHaveAttribute("href", "#tools");
+
+  const etcLink = tableOfContents.getByRole("link", { name: "etc" });
+  await expect(etcLink).toBeVisible();
+  await expect(etcLink).toHaveAttribute("href", "#etc");
+
+  const videosLink = tableOfContents.getByRole("link", { name: "videos" });
+  await expect(videosLink).toBeVisible();
+  await expect(videosLink).toHaveAttribute("href", "#videos");
+
+  // check content
+
+  const programmingSectionHeading = page.getByRole("heading", {
+    name: "Programming",
+  });
+  await expect(programmingSectionHeading).toBeVisible();
+  await expect(programmingSectionHeading).toHaveAttribute("id", "programming");
+
+  const githubSectionHeading = page.getByRole("heading", { name: "Github" });
+  await expect(githubSectionHeading).toBeVisible();
+  await expect(githubSectionHeading).toHaveAttribute("id", "github");
+
+  const toolsSectionHeading = page.getByRole("heading", { name: "Tools" });
+  await expect(toolsSectionHeading).toBeVisible();
+  await expect(toolsSectionHeading).toHaveAttribute("id", "tools");
+
+  const etcSectionHeading = page.getByRole("heading", { name: "etc" });
+  await expect(etcSectionHeading).toBeVisible();
+  await expect(etcSectionHeading).toHaveAttribute("id", "etc");
+
+  const videoSectionHeading = page.getByRole("heading", { name: "Videos" });
+  await expect(videoSectionHeading).toBeVisible();
+  await expect(videoSectionHeading).toHaveAttribute("id", "videos");
 
   // check footer
   const footer = page.getByRole("contentinfo");

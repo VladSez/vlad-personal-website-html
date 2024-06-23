@@ -77,6 +77,18 @@ test("main page", async ({ page }) => {
       { exact: true }
     )
   ).toBeVisible();
+
+  // check footer
+  const footer = page.getByRole("contentinfo");
+
+  await expect(footer).toBeVisible();
+
+  await expect(footer.getByRole("link", { name: "LinkedIn" })).toBeVisible();
+  await expect(footer.getByRole("link", { name: "GitHub" })).toBeVisible();
+  await expect(footer.getByRole("link", { name: "CV" })).toBeVisible();
+  await expect(
+    footer.getByRole("link", { name: "Website source" })
+  ).toBeVisible();
 });
 
 test("links page", async ({ page }) => {
@@ -134,6 +146,18 @@ test("links page", async ({ page }) => {
   await expect(page.getByRole("heading", { name: "Tools" })).toBeVisible();
 
   await expect(page.getByRole("heading", { name: "etc" })).toBeVisible();
+
+  // check footer
+  const footer = page.getByRole("contentinfo");
+
+  await expect(footer).toBeVisible();
+
+  await expect(footer.getByRole("link", { name: "LinkedIn" })).toBeVisible();
+  await expect(footer.getByRole("link", { name: "GitHub" })).toBeVisible();
+  await expect(footer.getByRole("link", { name: "CV" })).toBeVisible();
+  await expect(
+    footer.getByRole("link", { name: "Website source" })
+  ).toBeVisible();
 });
 
 test("all links are valid on /links.html", async ({ page, request }) => {

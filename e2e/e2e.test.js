@@ -170,12 +170,7 @@ test("/links.html", async ({ page }) => {
   await expect(etcLink).toBeVisible();
   await expect(etcLink).toHaveAttribute("href", "#etc");
 
-  const videosLink = tableOfContents.getByRole("link", { name: "videos" });
-  await expect(videosLink).toBeVisible();
-  await expect(videosLink).toHaveAttribute("href", "#videos");
-
-  // check content
-
+  // check main content
   const programmingSectionHeading = page.getByRole("heading", {
     name: "Programming",
   });

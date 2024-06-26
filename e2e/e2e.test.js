@@ -4,16 +4,7 @@ import { PromisePool } from "@supercharge/promise-pool";
 
 const BASE_URL = process.env.BASE_URL || `https://vldszn-cv.vercel.app`;
 
-// https://vercel.com/docs/security/deployment-protection/methods-to-bypass-deployment-protection/protection-bypass-automation
-// bypass vercel auth protection for e2e tests
-test.use({
-  // @ts-ignore
-  extraHTTPHeaders: {
-    "x-vercel-protection-bypass": process.env.VERCEL_AUTOMATION_BYPASS_SECRET,
-  },
-});
-
-test("main page", async ({ page }) => {
+test("/index.html", async ({ page }) => {
   // Go to the main page of the site (/index.html)
   await page.goto(BASE_URL);
 
@@ -68,6 +59,7 @@ test("main page", async ({ page }) => {
   // check nav bar
   await expect(page.getByRole("link", { name: "Main" })).toBeVisible();
   await expect(page.getByRole("link", { name: "Links" })).toBeVisible();
+  await expect(page.getByRole("link", { name: "Videos" })).toBeVisible();
 
   await expect(page.getByRole("heading", { name: "About me" })).toBeVisible();
 
@@ -91,7 +83,7 @@ test("main page", async ({ page }) => {
   ).toBeVisible();
 });
 
-test("links page", async ({ page }) => {
+test("/links.html", async ({ page }) => {
   await page.goto(`${BASE_URL}/links.html`);
 
   // Expect a title "to contain" a substring.
@@ -136,6 +128,7 @@ test("links page", async ({ page }) => {
   // check nav bar
   await expect(page.getByRole("link", { name: "Main" })).toBeVisible();
   await expect(page.getByRole("link", { name: "Links" })).toBeVisible();
+  await expect(page.getByRole("link", { name: "Videos" })).toBeVisible();
 
   await expect(page.getByRole("heading", { name: "Links" })).toBeVisible();
 
@@ -168,12 +161,7 @@ test("links page", async ({ page }) => {
   await expect(etcLink).toBeVisible();
   await expect(etcLink).toHaveAttribute("href", "#etc");
 
-  const videosLink = tableOfContents.getByRole("link", { name: "videos" });
-  await expect(videosLink).toBeVisible();
-  await expect(videosLink).toHaveAttribute("href", "#videos");
-
-  // check content
-
+  // check main content
   const programmingSectionHeading = page.getByRole("heading", {
     name: "Programming",
   });
@@ -191,10 +179,6 @@ test("links page", async ({ page }) => {
   const etcSectionHeading = page.getByRole("heading", { name: "etc" });
   await expect(etcSectionHeading).toBeVisible();
   await expect(etcSectionHeading).toHaveAttribute("id", "etc");
-
-  const videoSectionHeading = page.getByRole("heading", { name: "Videos" });
-  await expect(videoSectionHeading).toBeVisible();
-  await expect(videoSectionHeading).toHaveAttribute("id", "videos");
 
   // check footer
   const footer = page.getByRole("contentinfo");
@@ -314,4 +298,81 @@ test("all links are valid on /index.html", async ({ page, request }) => {
   expect(errors?.length).toBe(0);
   expect(status404?.length).toBe(0);
   expect(statusOk?.length).toBeGreaterThan(0);
+});
+
+test("/videos.html", async ({ page }) => {
+  await page.goto(`${BASE_URL}/videos.html`);
+
+  // Expect a title "to contain" a substring.
+  await expect(page).toHaveTitle(/Vlad Sazonau | Videos/);
+
+  // check open graph meta tags
+  const metaDescription = page.locator('meta[property="description"]');
+  await expect(metaDescription).toHaveAttribute(
+    "content",
+    "Vlad Sazonau is a frontend/full-stack enthusiast."
+  );
+
+  // open graph meta tags
+  const ogTitle = page.locator('meta[property="og:title"]');
+  await expect(ogTitle).toHaveAttribute("content", "Videos");
+
+  const ogImageAlt = page.locator('meta[property="og:image:alt"]');
+  await expect(ogImageAlt).toHaveAttribute(
+    "content",
+    "Vlad Sazonau personal website and blog. Videos."
+  );
+
+  const ogImageUrl = await page
+    .locator('meta[property="og:image"]')
+    .getAttribute("content");
+
+  expect(ogImageUrl).toBe("https://vldszn-cv.vercel.app/assets/og-videos.jpeg");
+
+  // twitter meta tags
+  const twiiterMetaTitle = page.locator('meta[name="twitter:title"]');
+  await expect(twiiterMetaTitle).toHaveAttribute("content", "Videos");
+
+  const twiiterMetaDescription = page.locator(
+    'meta[name="twitter:description"]'
+  );
+  await expect(twiiterMetaDescription).toHaveAttribute(
+    "content",
+    "Vlad Sazonau personal website and blog."
+  );
+
+  const twitterImageUrl = await page
+    .locator('meta[name="twitter:image"]')
+    .getAttribute("content");
+
+  expect(twitterImageUrl).toBe(
+    "https://vldszn-cv.vercel.app/assets/og-videos.jpeg"
+  );
+
+  // check nav bar
+  await expect(page.getByRole("link", { name: "Main" })).toBeVisible();
+  await expect(page.getByRole("link", { name: "Links" })).toBeVisible();
+  await expect(page.getByRole("link", { name: "Videos" })).toBeVisible();
+
+  await expect(page.getByRole("heading", { name: "Videos" })).toBeVisible();
+
+  const videosContainer = page.getByTestId("videos-list");
+  await expect(videosContainer).toBeVisible();
+
+  // check that youtube iframes are displayed on page
+  const youtubeIframes = page.locator("iframe[src*='youtube.com']");
+
+  const videosCount = await youtubeIframes.count();
+  expect(videosCount).toBeGreaterThan(0);
+
+  // check footer
+  const footer = page.getByRole("contentinfo");
+
+  await expect(footer).toBeVisible();
+  await expect(footer.getByRole("link", { name: "LinkedIn" })).toBeVisible();
+  await expect(footer.getByRole("link", { name: "GitHub" })).toBeVisible();
+  await expect(footer.getByRole("link", { name: "CV" })).toBeVisible();
+  await expect(
+    footer.getByRole("link", { name: "Website source" })
+  ).toBeVisible();
 });

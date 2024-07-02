@@ -102,14 +102,14 @@ test("/index.html", async ({ page }) => {
   await expect(linkedInLinkFooter).toBeVisible();
   await expect(linkedInLinkFooter).toHaveAttribute(
     "href",
-    "https://dub.sh/cv-QVUi2u1"
+    "https://dub.sh/vladsazon-linkedin"
   );
 
   const githubLinkFooter = footer.getByRole("link", { name: "GitHub" });
   await expect(githubLinkFooter).toBeVisible();
   await expect(githubLinkFooter).toHaveAttribute(
     "href",
-    "https://git.new/6mjjnEY"
+    "https://git.new/vladsazon-github"
   );
 
   const cvLinkFooter = footer.getByRole("link", { name: "CV" });
@@ -241,14 +241,14 @@ test("/links.html", async ({ page }) => {
   await expect(linkedInLinkFooter).toBeVisible();
   await expect(linkedInLinkFooter).toHaveAttribute(
     "href",
-    "https://dub.sh/cv-QVUi2u1"
+    "https://dub.sh/vladsazon-linkedin"
   );
 
   const githubLinkFooter = footer.getByRole("link", { name: "GitHub" });
   await expect(githubLinkFooter).toBeVisible();
   await expect(githubLinkFooter).toHaveAttribute(
     "href",
-    "https://git.new/6mjjnEY"
+    "https://git.new/vladsazon-github"
   );
 
   const cvLinkFooter = footer.getByRole("link", { name: "CV" });
@@ -456,14 +456,14 @@ test("/videos.html", async ({ page }) => {
   await expect(linkedInLinkFooter).toBeVisible();
   await expect(linkedInLinkFooter).toHaveAttribute(
     "href",
-    "https://dub.sh/cv-QVUi2u1"
+    "https://dub.sh/vladsazon-linkedin"
   );
 
   const githubLinkFooter = footer.getByRole("link", { name: "GitHub" });
   await expect(githubLinkFooter).toBeVisible();
   await expect(githubLinkFooter).toHaveAttribute(
     "href",
-    "https://git.new/6mjjnEY"
+    "https://git.new/vladsazon-github"
   );
 
   const cvLinkFooter = footer.getByRole("link", { name: "CV" });

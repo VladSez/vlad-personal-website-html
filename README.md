@@ -25,3 +25,7 @@ https://dynamic-og-image-generator.vercel.app
 ## Repo URL
 
 https://github.com/VladSez/html-cv
+
+## Open Status (website monitor)
+
+https://www.openstatus.dev/app/early-lifeguard/monitors/3708/overview

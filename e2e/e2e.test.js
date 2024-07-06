@@ -13,11 +13,16 @@ test("/index.html", async ({ page }) => {
   await expect(page).toHaveTitle(/Vlad Sazonau | About me/);
 
   // check open graph meta tags
-  const metaDescription = page.locator('meta[property="description"]');
+  const metaDescription = page.locator('meta[name="description"]');
   await expect(metaDescription).toHaveAttribute(
     "content",
-    "Vlad Sazonau is a frontend/full-stack enthusiast."
+    "Vlad Sazonau personal website and blog. Vlad Sazonau is a frontend/full-stack enthusiast."
   );
+
+  // css file link is presente in page
+  const cssFile = page.locator("link[rel=stylesheet]");
+
+  await expect(cssFile).toHaveAttribute("href", "./index.css");
 
   // open graph meta tags
   const ogTitle = page.locator('meta[property="og:title"]');
@@ -33,9 +38,16 @@ test("/index.html", async ({ page }) => {
     .locator('meta[property="og:image"]')
     .getAttribute("content");
 
-  expect(ogImageUrl).toBe(
-    "https://vldszn-cv.vercel.app/assets/og-about-me.jpeg"
-  );
+  const OG_IMAGE_INDEX_URL =
+    "https://vldszn-cv.vercel.app/assets/og-about-me.jpeg";
+
+  expect(ogImageUrl).toBe(OG_IMAGE_INDEX_URL);
+
+  // check that open graph image is accessible
+  const ogImageResponse = await fetch(ogImageUrl ?? "").catch(console.error);
+
+  expect(ogImageResponse?.ok).toBeTruthy();
+  expect(ogImageResponse?.status).toBe(200);
 
   // twitter meta tags
   const twiiterMetaTitle = page.locator('meta[name="twitter:title"]');
@@ -53,9 +65,15 @@ test("/index.html", async ({ page }) => {
     .locator('meta[name="twitter:image"]')
     .getAttribute("content");
 
-  expect(twitterImageUrl).toBe(
-    "https://vldszn-cv.vercel.app/assets/og-about-me.jpeg"
+  expect(twitterImageUrl).toBe(OG_IMAGE_INDEX_URL);
+
+  // check that twitter image is accessible
+  const twitterImageResponse = await fetch(twitterImageUrl ?? "").catch(
+    console.error
   );
+
+  expect(twitterImageResponse?.ok).toBeTruthy();
+  expect(twitterImageResponse?.status).toBe(200);
 
   // check nav bar
   const mainLink = page.getByRole("link", { name: "Main" });
@@ -124,6 +142,15 @@ test("/index.html", async ({ page }) => {
     "href",
     "https://github.com/VladSez/html-cv"
   );
+
+  const calComLink = footer.getByRole("link", {
+    name: "Schedule a call with me",
+  });
+  await expect(calComLink).toBeVisible();
+  await expect(calComLink).toHaveAttribute(
+    "href",
+    "https://cal.com/vladsazon/meet"
+  );
 });
 
 test("/links.html", async ({ page }) => {
@@ -133,7 +160,18 @@ test("/links.html", async ({ page }) => {
   // Expect a title "to contain" a substring.
   await expect(page).toHaveTitle(/Vlad Sazonau | Links/);
 
+  // css file link is presente in page
+  const cssFile = page.locator("link[rel=stylesheet]");
+
+  await expect(cssFile).toHaveAttribute("href", "./index.css");
+
   // open graph meta tags
+  const metaDescription = page.locator('meta[name="description"]');
+  await expect(metaDescription).toHaveAttribute(
+    "content",
+    "Vlad Sazonau personal website and blog. Vlad Sazonau is a frontend/full-stack enthusiast."
+  );
+
   const ogTitle = page.locator('meta[property="og:title"]');
   await expect(ogTitle).toHaveAttribute("content", "Links");
 
@@ -143,11 +181,20 @@ test("/links.html", async ({ page }) => {
     "Vlad Sazonau personal website and blog. Links."
   );
 
+  const OG_IMAGE_LINKS_URL =
+    "https://vldszn-cv.vercel.app/assets/og-links.jpeg";
+
   const ogImageUrl = await page
     .locator('meta[property="og:image"]')
     .getAttribute("content");
 
-  expect(ogImageUrl).toBe("https://vldszn-cv.vercel.app/assets/og-links.jpeg");
+  expect(ogImageUrl).toBe(OG_IMAGE_LINKS_URL);
+
+  // check that open graph image is accessible
+  const ogImageResponse = await fetch(ogImageUrl ?? "").catch(console.error);
+
+  expect(ogImageResponse?.ok).toBeTruthy();
+  expect(ogImageResponse?.status).toBe(200);
 
   // twitter meta tags
   const twiiterMetaTitle = page.locator('meta[name="twitter:title"]');
@@ -165,11 +212,16 @@ test("/links.html", async ({ page }) => {
     .locator('meta[name="twitter:image"]')
     .getAttribute("content");
 
-  expect(twitterImageUrl).toBe(
-    "https://vldszn-cv.vercel.app/assets/og-links.jpeg"
+  expect(twitterImageUrl).toBe(OG_IMAGE_LINKS_URL);
+
+  // check that twitter image is accessible
+  const twitterImageResponse = await fetch(twitterImageUrl ?? "").catch(
+    console.error
   );
 
-  // check nav bar
+  expect(twitterImageResponse?.ok).toBeTruthy();
+  expect(twitterImageResponse?.status).toBe(200);
+
   // check nav bar
   const mainLink = page.getByRole("link", { name: "Main" });
   await expect(mainLink).toBeVisible();
@@ -262,6 +314,15 @@ test("/links.html", async ({ page }) => {
   await expect(websiteSourceLinkFooter).toHaveAttribute(
     "href",
     "https://github.com/VladSez/html-cv"
+  );
+
+  const calComLink = footer.getByRole("link", {
+    name: "Schedule a call with me",
+  });
+  await expect(calComLink).toBeVisible();
+  await expect(calComLink).toHaveAttribute(
+    "href",
+    "https://cal.com/vladsazon/meet"
   );
 });
 
@@ -377,14 +438,21 @@ test("all links are valid on /index.html", async ({ page, request }) => {
 test("/videos.html", async ({ page }) => {
   await page.goto(`${BASE_URL}/videos.html`);
 
+  await expect(page).toHaveURL(`${BASE_URL}/videos.html`);
+
   // Expect a title "to contain" a substring.
   await expect(page).toHaveTitle(/Vlad Sazonau | Videos/);
 
+  // css file link is presente in page
+  const cssFile = page.locator("link[rel=stylesheet]");
+
+  await expect(cssFile).toHaveAttribute("href", "./index.css");
+
   // check open graph meta tags
-  const metaDescription = page.locator('meta[property="description"]');
+  const metaDescription = page.locator('meta[name="description"]');
   await expect(metaDescription).toHaveAttribute(
     "content",
-    "Vlad Sazonau is a frontend/full-stack enthusiast."
+    "Vlad Sazonau personal website and blog. Vlad Sazonau is a frontend/full-stack enthusiast."
   );
 
   // open graph meta tags
@@ -397,11 +465,20 @@ test("/videos.html", async ({ page }) => {
     "Vlad Sazonau personal website and blog. Videos."
   );
 
+  const OG_IMAGE_VIDEOS_URL =
+    "https://vldszn-cv.vercel.app/assets/og-videos.jpeg";
+
   const ogImageUrl = await page
     .locator('meta[property="og:image"]')
     .getAttribute("content");
 
-  expect(ogImageUrl).toBe("https://vldszn-cv.vercel.app/assets/og-videos.jpeg");
+  expect(ogImageUrl).toBe(OG_IMAGE_VIDEOS_URL);
+
+  // check that open graph image is accessible
+  const ogImageResponse = await fetch(ogImageUrl ?? "").catch(console.error);
+
+  expect(ogImageResponse?.ok).toBeTruthy();
+  expect(ogImageResponse?.status).toBe(200);
 
   // twitter meta tags
   const twiiterMetaTitle = page.locator('meta[name="twitter:title"]');
@@ -419,9 +496,15 @@ test("/videos.html", async ({ page }) => {
     .locator('meta[name="twitter:image"]')
     .getAttribute("content");
 
-  expect(twitterImageUrl).toBe(
-    "https://vldszn-cv.vercel.app/assets/og-videos.jpeg"
+  expect(twitterImageUrl).toBe(OG_IMAGE_VIDEOS_URL);
+
+  // check that twitter image is accessible
+  const twitterImageResponse = await fetch(twitterImageUrl ?? "").catch(
+    console.error
   );
+
+  expect(twitterImageResponse?.ok).toBeTruthy();
+  expect(twitterImageResponse?.status).toBe(200);
 
   // check nav bar
   const mainLink = page.getByRole("link", { name: "Main" });
@@ -477,5 +560,41 @@ test("/videos.html", async ({ page }) => {
   await expect(websiteSourceLinkFooter).toHaveAttribute(
     "href",
     "https://github.com/VladSez/html-cv"
+  );
+
+  const calComLink = footer.getByRole("link", {
+    name: "Schedule a call with me",
+  });
+  await expect(calComLink).toBeVisible();
+  await expect(calComLink).toHaveAttribute(
+    "href",
+    "https://cal.com/vladsazon/meet"
+  );
+});
+
+test("check that link to my website is presented in my github profile", async ({
+  page,
+}) => {
+  await page.goto("https://github.com/VladSez");
+
+  await expect(page).toHaveURL(`https://github.com/VladSez`);
+
+  // Expect a title "to contain" a substring.
+  await expect(page).toHaveTitle("VladSez (Vlad Sazonau) · GitHub");
+
+  const githubPersonalWebsiteUrlLocator = page.locator(
+    "li[data-test-selector='profile-website-url']"
+  );
+  await expect(githubPersonalWebsiteUrlLocator).toBeVisible();
+
+  const personalWebsiteLink = githubPersonalWebsiteUrlLocator.getByRole(
+    "link",
+    { name: "https://dub.sh/vladsazon-web" }
+  );
+
+  await expect(personalWebsiteLink).toBeVisible();
+  await expect(personalWebsiteLink).toHaveAttribute(
+    "href",
+    "https://dub.sh/vladsazon-web"
   );
 });

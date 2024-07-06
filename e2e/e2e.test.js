@@ -575,7 +575,7 @@ test("/videos.html", async ({ page }) => {
   );
 });
 
-test.only("check that link to my website is presented in my github profile", async ({
+test("check that link to my website is presented in my github profile", async ({
   page,
 }) => {
   await page.goto("https://github.com/VladSez");

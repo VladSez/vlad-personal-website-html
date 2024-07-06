@@ -13,7 +13,7 @@ test("/index.html", async ({ page }) => {
   await expect(page).toHaveTitle(/Vlad Sazonau | About me/);
 
   // check open graph meta tags
-  const metaDescription = page.locator('meta[property="description"]');
+  const metaDescription = page.locator('meta[name="description"]');
   await expect(metaDescription).toHaveAttribute(
     "content",
     "Vlad Sazonau is a frontend/full-stack enthusiast."
@@ -22,10 +22,7 @@ test("/index.html", async ({ page }) => {
   // css file link is presente in page
   const cssFile = page.locator("link[rel=stylesheet]");
 
-  await expect(cssFile).toHaveAttribute(
-    "href",
-    "https://vldszn-cv.vercel.app/index.css"
-  );
+  await expect(cssFile).toHaveAttribute("href", "./index.css");
 
   // open graph meta tags
   const ogTitle = page.locator('meta[property="og:title"]');
@@ -166,12 +163,15 @@ test("/links.html", async ({ page }) => {
   // css file link is presente in page
   const cssFile = page.locator("link[rel=stylesheet]");
 
-  await expect(cssFile).toHaveAttribute(
-    "href",
-    "https://vldszn-cv.vercel.app/index.css"
-  );
+  await expect(cssFile).toHaveAttribute("href", "./index.css");
 
   // open graph meta tags
+  const metaDescription = page.locator('meta[name="description"]');
+  await expect(metaDescription).toHaveAttribute(
+    "content",
+    "Vlad Sazonau is a frontend/full-stack enthusiast."
+  );
+
   const ogTitle = page.locator('meta[property="og:title"]');
   await expect(ogTitle).toHaveAttribute("content", "Links");
 
@@ -446,13 +446,10 @@ test("/videos.html", async ({ page }) => {
   // css file link is presente in page
   const cssFile = page.locator("link[rel=stylesheet]");
 
-  await expect(cssFile).toHaveAttribute(
-    "href",
-    "https://vldszn-cv.vercel.app/index.css"
-  );
+  await expect(cssFile).toHaveAttribute("href", "./index.css");
 
   // check open graph meta tags
-  const metaDescription = page.locator('meta[property="description"]');
+  const metaDescription = page.locator('meta[name="description"]');
   await expect(metaDescription).toHaveAttribute(
     "content",
     "Vlad Sazonau is a frontend/full-stack enthusiast."

@@ -76,17 +76,7 @@ test("/index.html", async ({ page }) => {
   expect(twitterImageResponse?.status).toBe(200);
 
   // check nav bar
-  const mainLink = page.getByRole("link", { name: "Main" });
-  await expect(mainLink).toBeVisible();
-  await expect(mainLink).toHaveAttribute("href", "/index.html");
-
-  const linksLink = page.getByRole("link", { name: "Links" });
-  await expect(linksLink).toBeVisible();
-  await expect(linksLink).toHaveAttribute("href", "/links.html");
-
-  const videosLink = page.getByRole("link", { name: "Videos" });
-  await expect(videosLink).toBeVisible();
-  await expect(videosLink).toHaveAttribute("href", "/videos.html");
+  await checkNavLinks(page);
 
   // check heading
   await expect(page.getByRole("heading", { name: "About me" })).toBeVisible();
@@ -113,44 +103,7 @@ test("/index.html", async ({ page }) => {
   ).toBeVisible();
 
   // check footer
-  const footer = page.getByRole("contentinfo");
-  await expect(footer).toBeVisible();
-
-  const linkedInLinkFooter = footer.getByRole("link", { name: "LinkedIn" });
-  await expect(linkedInLinkFooter).toBeVisible();
-  await expect(linkedInLinkFooter).toHaveAttribute(
-    "href",
-    "https://dub.sh/vladsazon-linkedin"
-  );
-
-  const githubLinkFooter = footer.getByRole("link", { name: "GitHub" });
-  await expect(githubLinkFooter).toBeVisible();
-  await expect(githubLinkFooter).toHaveAttribute(
-    "href",
-    "https://git.new/vladsazon-github"
-  );
-
-  const cvLinkFooter = footer.getByRole("link", { name: "CV" });
-  await expect(cvLinkFooter).toBeVisible();
-  await expect(cvLinkFooter).toHaveAttribute("href", "https://dub.sh/vlad-cv");
-
-  const websiteSourceLinkFooter = footer.getByRole("link", {
-    name: "Website source",
-  });
-  await expect(websiteSourceLinkFooter).toBeVisible();
-  await expect(websiteSourceLinkFooter).toHaveAttribute(
-    "href",
-    "https://github.com/VladSez/html-cv"
-  );
-
-  const calComLink = footer.getByRole("link", {
-    name: "Schedule a call with me",
-  });
-  await expect(calComLink).toBeVisible();
-  await expect(calComLink).toHaveAttribute(
-    "href",
-    "https://cal.com/vladsazon/meet"
-  );
+  await checkFooterLinks(page);
 });
 
 test("/links.html", async ({ page }) => {
@@ -223,17 +176,7 @@ test("/links.html", async ({ page }) => {
   expect(twitterImageResponse?.status).toBe(200);
 
   // check nav bar
-  const mainLink = page.getByRole("link", { name: "Main" });
-  await expect(mainLink).toBeVisible();
-  await expect(mainLink).toHaveAttribute("href", "/index.html");
-
-  const linksLink = page.getByRole("link", { name: "Links" });
-  await expect(linksLink).toBeVisible();
-  await expect(linksLink).toHaveAttribute("href", "/links.html");
-
-  const videosLink = page.getByRole("link", { name: "Videos" });
-  await expect(videosLink).toBeVisible();
-  await expect(videosLink).toHaveAttribute("href", "/videos.html");
+  await checkNavLinks(page);
 
   await expect(page.getByRole("heading", { name: "Links" })).toBeVisible();
 
@@ -286,44 +229,7 @@ test("/links.html", async ({ page }) => {
   await expect(etcSectionHeading).toHaveAttribute("id", "etc");
 
   // check footer
-  const footer = page.getByRole("contentinfo");
-  await expect(footer).toBeVisible();
-
-  const linkedInLinkFooter = footer.getByRole("link", { name: "LinkedIn" });
-  await expect(linkedInLinkFooter).toBeVisible();
-  await expect(linkedInLinkFooter).toHaveAttribute(
-    "href",
-    "https://dub.sh/vladsazon-linkedin"
-  );
-
-  const githubLinkFooter = footer.getByRole("link", { name: "GitHub" });
-  await expect(githubLinkFooter).toBeVisible();
-  await expect(githubLinkFooter).toHaveAttribute(
-    "href",
-    "https://git.new/vladsazon-github"
-  );
-
-  const cvLinkFooter = footer.getByRole("link", { name: "CV" });
-  await expect(cvLinkFooter).toBeVisible();
-  await expect(cvLinkFooter).toHaveAttribute("href", "https://dub.sh/vlad-cv");
-
-  const websiteSourceLinkFooter = footer.getByRole("link", {
-    name: "Website source",
-  });
-  await expect(websiteSourceLinkFooter).toBeVisible();
-  await expect(websiteSourceLinkFooter).toHaveAttribute(
-    "href",
-    "https://github.com/VladSez/html-cv"
-  );
-
-  const calComLink = footer.getByRole("link", {
-    name: "Schedule a call with me",
-  });
-  await expect(calComLink).toBeVisible();
-  await expect(calComLink).toHaveAttribute(
-    "href",
-    "https://cal.com/vladsazon/meet"
-  );
+  await checkFooterLinks(page);
 });
 
 test("all links are valid on /links.html", async ({ page, request }) => {
@@ -507,17 +413,7 @@ test("/videos.html", async ({ page }) => {
   expect(twitterImageResponse?.status).toBe(200);
 
   // check nav bar
-  const mainLink = page.getByRole("link", { name: "Main" });
-  await expect(mainLink).toBeVisible();
-  await expect(mainLink).toHaveAttribute("href", "/index.html");
-
-  const linksLink = page.getByRole("link", { name: "Links" });
-  await expect(linksLink).toBeVisible();
-  await expect(linksLink).toHaveAttribute("href", "/links.html");
-
-  const videosLink = page.getByRole("link", { name: "Videos" });
-  await expect(videosLink).toBeVisible();
-  await expect(videosLink).toHaveAttribute("href", "/videos.html");
+  await checkNavLinks(page);
 
   // check heading
   await expect(page.getByRole("heading", { name: "Videos" })).toBeVisible();
@@ -532,6 +428,51 @@ test("/videos.html", async ({ page }) => {
   expect(videosCount).toBeGreaterThan(0);
 
   // check footer
+  await checkFooterLinks(page);
+});
+
+test("check that link to my website is presented in my github profile", async ({
+  page,
+}) => {
+  await page.goto("https://github.com/VladSez");
+
+  await expect(page).toHaveURL(`https://github.com/VladSez`);
+
+  // Expect a title "to contain" a substring.
+  await expect(page).toHaveTitle("VladSez (Vlad Sazonau) · GitHub");
+
+  const githubPersonalWebsiteUrlLocator = page.locator(
+    "li[data-test-selector='profile-website-url']"
+  );
+  await expect(githubPersonalWebsiteUrlLocator).toBeVisible();
+
+  const personalWebsiteLink = githubPersonalWebsiteUrlLocator.getByRole(
+    "link",
+    { name: "https://dub.sh/vladsazon-web" }
+  );
+
+  await expect(personalWebsiteLink).toBeVisible();
+  await expect(personalWebsiteLink).toHaveAttribute(
+    "href",
+    "https://dub.sh/vladsazon-web"
+  );
+});
+
+const checkNavLinks = async (page) => {
+  const mainLink = page.getByRole("link", { name: "Main" });
+  await expect(mainLink).toBeVisible();
+  await expect(mainLink).toHaveAttribute("href", "/index.html");
+
+  const linksLink = page.getByRole("link", { name: "Links" });
+  await expect(linksLink).toBeVisible();
+  await expect(linksLink).toHaveAttribute("href", "/links.html");
+
+  const videosLink = page.getByRole("link", { name: "Videos" });
+  await expect(videosLink).toBeVisible();
+  await expect(videosLink).toHaveAttribute("href", "/videos.html");
+};
+
+const checkFooterLinks = async (page) => {
   const footer = page.getByRole("contentinfo");
   await expect(footer).toBeVisible();
 
@@ -570,31 +511,4 @@ test("/videos.html", async ({ page }) => {
     "href",
     "https://cal.com/vladsazon/meet"
   );
-});
-
-test("check that link to my website is presented in my github profile", async ({
-  page,
-}) => {
-  await page.goto("https://github.com/VladSez");
-
-  await expect(page).toHaveURL(`https://github.com/VladSez`);
-
-  // Expect a title "to contain" a substring.
-  await expect(page).toHaveTitle("VladSez (Vlad Sazonau) · GitHub");
-
-  const githubPersonalWebsiteUrlLocator = page.locator(
-    "li[data-test-selector='profile-website-url']"
-  );
-  await expect(githubPersonalWebsiteUrlLocator).toBeVisible();
-
-  const personalWebsiteLink = githubPersonalWebsiteUrlLocator.getByRole(
-    "link",
-    { name: "https://dub.sh/vladsazon-web" }
-  );
-
-  await expect(personalWebsiteLink).toBeVisible();
-  await expect(personalWebsiteLink).toHaveAttribute(
-    "href",
-    "https://dub.sh/vladsazon-web"
-  );
-});
+};

@@ -421,10 +421,10 @@ test("/videos.html", async ({ page }) => {
   const videosContainer = page.getByTestId("videos-list");
   await expect(videosContainer).toBeVisible();
 
-  // check that youtube iframes are displayed on page
-  const youtubeIframes = page.locator("iframe[src*='youtube.com']");
+  // check that youtube videos are displayed on page
+  const youtubeVideos = page.locator("lite-youtube");
 
-  const videosCount = await youtubeIframes.count();
+  const videosCount = await youtubeVideos.count();
   expect(videosCount).toBeGreaterThan(0);
 
   // check footer

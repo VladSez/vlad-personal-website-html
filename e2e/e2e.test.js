@@ -20,7 +20,7 @@ test("/index.html", async ({ page }) => {
   );
 
   // css file link is presente in page
-  const cssFile = page.locator("link[rel=stylesheet]");
+  const cssFile = page.locator("link[rel=stylesheet]").first();
 
   await expect(cssFile).toHaveAttribute("href", "./index.css");
 
@@ -114,7 +114,7 @@ test("/links.html", async ({ page }) => {
   await expect(page).toHaveTitle(/Vlad Sazonau | Links/);
 
   // css file link is presente in page
-  const cssFile = page.locator("link[rel=stylesheet]");
+  const cssFile = page.locator("link[rel=stylesheet]").first();
 
   await expect(cssFile).toHaveAttribute("href", "./index.css");
 
@@ -350,7 +350,7 @@ test("/videos.html", async ({ page }) => {
   await expect(page).toHaveTitle(/Vlad Sazonau | Videos/);
 
   // css file link is presente in page
-  const cssFile = page.locator("link[rel=stylesheet]");
+  const cssFile = page.locator("link[rel=stylesheet]").first();
 
   await expect(cssFile).toHaveAttribute("href", "./index.css");
 
@@ -483,16 +483,20 @@ const checkFooterLinks = async (page) => {
     "https://dub.sh/vladsazon-linkedin"
   );
 
+  await expect(linkedInLinkFooter).toHaveAttribute("target", "_blank");
+
   const githubLinkFooter = footer.getByRole("link", { name: "GitHub" });
   await expect(githubLinkFooter).toBeVisible();
   await expect(githubLinkFooter).toHaveAttribute(
     "href",
     "https://git.new/vladsazon-github"
   );
+  await expect(githubLinkFooter).toHaveAttribute("target", "_blank");
 
   const cvLinkFooter = footer.getByRole("link", { name: "CV" });
   await expect(cvLinkFooter).toBeVisible();
   await expect(cvLinkFooter).toHaveAttribute("href", "https://dub.sh/vlad-cv");
+  await expect(cvLinkFooter).toHaveAttribute("target", "_blank");
 
   const websiteSourceLinkFooter = footer.getByRole("link", {
     name: "Website source",
@@ -502,6 +506,7 @@ const checkFooterLinks = async (page) => {
     "href",
     "https://github.com/VladSez/html-cv"
   );
+  await expect(websiteSourceLinkFooter).toHaveAttribute("target", "_blank");
 
   const calComLink = footer.getByRole("link", {
     name: "Schedule a call with me",
@@ -511,4 +516,5 @@ const checkFooterLinks = async (page) => {
     "href",
     "https://cal.com/vladsazon/meet"
   );
+  await expect(calComLink).toHaveAttribute("target", "_blank");
 };

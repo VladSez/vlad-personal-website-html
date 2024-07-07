@@ -19,10 +19,12 @@ test("/index.html", async ({ page }) => {
     "Vlad Sazonau personal website and blog. Vlad Sazonau is a frontend/full-stack enthusiast."
   );
 
-  // css file link is presente in page
-  const cssFile = page.locator("link[rel=stylesheet]").first();
+  // css file link is presented on the page
+  const mainCssFile = page.locator(
+    'link[rel="stylesheet"][href="./index.css"]'
+  );
 
-  await expect(cssFile).toHaveAttribute("href", "./index.css");
+  expect(mainCssFile).toBeAttached();
 
   // open graph meta tags
   const ogTitle = page.locator('meta[property="og:title"]');
@@ -113,10 +115,12 @@ test("/links.html", async ({ page }) => {
   // Expect a title "to contain" a substring.
   await expect(page).toHaveTitle(/Vlad Sazonau | Links/);
 
-  // css file link is presente in page
-  const cssFile = page.locator("link[rel=stylesheet]").first();
+  // css file link is presented on the page
+  const mainCssFile = page.locator(
+    'link[rel="stylesheet"][href="./index.css"]'
+  );
 
-  await expect(cssFile).toHaveAttribute("href", "./index.css");
+  expect(mainCssFile).toBeAttached();
 
   // open graph meta tags
   const metaDescription = page.locator('meta[name="description"]');
@@ -349,10 +353,32 @@ test("/videos.html", async ({ page }) => {
   // Expect a title "to contain" a substring.
   await expect(page).toHaveTitle(/Vlad Sazonau | Videos/);
 
-  // css file link is presente in page
-  const cssFile = page.locator("link[rel=stylesheet]").first();
+  // css file link is presented on the page
+  const mainCssFile = page.locator(
+    'link[rel="stylesheet"][href="./index.css"]'
+  );
 
-  await expect(cssFile).toHaveAttribute("href", "./index.css");
+  expect(mainCssFile).toBeAttached();
+
+  const cssFileLiteYoutube = page
+    .locator('link[rel="stylesheet"]')
+    .and(
+      page.locator(
+        'link[href="https://cdnjs.cloudflare.com/ajax/libs/lite-youtube-embed/0.3.2/lite-yt-embed.css"]'
+      )
+    );
+
+  expect(cssFileLiteYoutube).toBeAttached();
+
+  const jsLiteYoutubeScript = page
+    .locator("script[defer]")
+    .and(
+      page.locator(
+        `script[src="https://cdnjs.cloudflare.com/ajax/libs/lite-youtube-embed/0.3.2/lite-yt-embed.js"]`
+      )
+    );
+
+  expect(jsLiteYoutubeScript).toBeAttached();
 
   // check open graph meta tags
   const metaDescription = page.locator('meta[name="description"]');
@@ -418,8 +444,9 @@ test("/videos.html", async ({ page }) => {
   // check heading
   await expect(page.getByRole("heading", { name: "Videos" })).toBeVisible();
 
-  const videosContainer = page.getByTestId("videos-list");
-  await expect(videosContainer).toBeVisible();
+  const firstVideoInContainer = page.getByTestId("videos-list").first();
+  // At least one item in the list is visible.
+  await expect(firstVideoInContainer).toBeVisible();
 
   // check that youtube videos are displayed on page
   const youtubeVideos = page.locator("lite-youtube");

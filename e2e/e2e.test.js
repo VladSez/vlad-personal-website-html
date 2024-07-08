@@ -25,11 +25,17 @@ test("/index.html", async ({ page }) => {
   );
   expect(mainCssFile).toBeAttached();
 
-  // js analytics link is presented on the page
-  const jsAnalyticsFile = page.locator(
+  // js vercel analytics scropt is presented on the page
+  const jsVercelAnalyticsScript = page.locator(
     'script[src="/_vercel/insights/script.js"]'
   );
-  expect(jsAnalyticsFile).toBeAttached();
+  expect(jsVercelAnalyticsScript).toBeAttached();
+
+  // js Cloudflare analytics scropt is presented on the page
+  const jsCloudflareAnalyticsFile = page.locator(
+    'script[src="https://static.cloudflareinsights.com/beacon.min.js"]'
+  );
+  expect(jsCloudflareAnalyticsFile).toBeAttached();
 
   // open graph meta tags
   const ogTitle = page.locator('meta[property="og:title"]');
@@ -125,11 +131,17 @@ test("/links.html", async ({ page }) => {
   );
   expect(mainCssFile).toBeAttached();
 
-  // js analytics link is presented on the page
-  const jsAnalyticsFile = page.locator(
+  // js vercel analytics scropt is presented on the page
+  const jsVercelAnalyticsScript = page.locator(
     'script[src="/_vercel/insights/script.js"]'
   );
-  expect(jsAnalyticsFile).toBeAttached();
+  expect(jsVercelAnalyticsScript).toBeAttached();
+
+  // js Cloudflare analytics scropt is presented on the page
+  const jsCloudflareAnalyticsFile = page.locator(
+    'script[src="https://static.cloudflareinsights.com/beacon.min.js"]'
+  );
+  expect(jsCloudflareAnalyticsFile).toBeAttached();
 
   // open graph meta tags
   const metaDescription = page.locator('meta[name="description"]');
@@ -367,11 +379,17 @@ test("/videos.html", async ({ page }) => {
   );
   expect(mainCssFile).toBeAttached();
 
-  // js analytics link is presented on the page
-  const jsAnalyticsFile = page.locator(
+  // js vercel analytics scropt is presented on the page
+  const jsVercelAnalyticsScript = page.locator(
     'script[src="/_vercel/insights/script.js"]'
   );
-  expect(jsAnalyticsFile).toBeAttached();
+  expect(jsVercelAnalyticsScript).toBeAttached();
+
+  // js Cloudflare analytics scropt is presented on the page
+  const jsCloudflareAnalyticsFile = page.locator(
+    'script[src="https://static.cloudflareinsights.com/beacon.min.js"]'
+  );
+  expect(jsCloudflareAnalyticsFile).toBeAttached();
 
   const cssFileLiteYoutube = page
     .locator('link[rel="stylesheet"]')

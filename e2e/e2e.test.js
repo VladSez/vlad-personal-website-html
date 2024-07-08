@@ -23,8 +23,13 @@ test("/index.html", async ({ page }) => {
   const mainCssFile = page.locator(
     'link[rel="stylesheet"][href="./index.css"]'
   );
-
   expect(mainCssFile).toBeAttached();
+
+  // js analytics link is presented on the page
+  const jsAnalyticsFile = page.locator(
+    'script[src="/_vercel/insights/script.js"]'
+  );
+  expect(jsAnalyticsFile).toBeAttached();
 
   // open graph meta tags
   const ogTitle = page.locator('meta[property="og:title"]');
@@ -118,8 +123,13 @@ test("/links.html", async ({ page }) => {
   const mainCssFile = page.locator(
     'link[rel="stylesheet"][href="./index.css"]'
   );
-
   expect(mainCssFile).toBeAttached();
+
+  // js analytics link is presented on the page
+  const jsAnalyticsFile = page.locator(
+    'script[src="/_vercel/insights/script.js"]'
+  );
+  expect(jsAnalyticsFile).toBeAttached();
 
   // open graph meta tags
   const metaDescription = page.locator('meta[name="description"]');
@@ -355,8 +365,13 @@ test("/videos.html", async ({ page }) => {
   const mainCssFile = page.locator(
     'link[rel="stylesheet"][href="./index.css"]'
   );
-
   expect(mainCssFile).toBeAttached();
+
+  // js analytics link is presented on the page
+  const jsAnalyticsFile = page.locator(
+    'script[src="/_vercel/insights/script.js"]'
+  );
+  expect(jsAnalyticsFile).toBeAttached();
 
   const cssFileLiteYoutube = page
     .locator('link[rel="stylesheet"]')

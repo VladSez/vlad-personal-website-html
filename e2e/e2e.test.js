@@ -27,13 +27,13 @@ test("/index.html", async ({ page }) => {
 
   // js vercel analytics scropt is presented on the page
   const jsVercelAnalyticsScript = page.locator(
-    'script[src="/_vercel/insights/script.js"]'
+    'script[src="/_vercel/insights/script.js"][defer]'
   );
   expect(jsVercelAnalyticsScript).toBeAttached();
 
   // js Cloudflare analytics scropt is presented on the page
   const jsCloudflareAnalyticsFile = page.locator(
-    'script[src="https://static.cloudflareinsights.com/beacon.min.js"]'
+    'script[src="https://static.cloudflareinsights.com/beacon.min.js"][defer]'
   );
   expect(jsCloudflareAnalyticsFile).toBeAttached();
 
@@ -133,13 +133,13 @@ test("/links.html", async ({ page }) => {
 
   // js vercel analytics scropt is presented on the page
   const jsVercelAnalyticsScript = page.locator(
-    'script[src="/_vercel/insights/script.js"]'
+    'script[src="/_vercel/insights/script.js"][defer]'
   );
   expect(jsVercelAnalyticsScript).toBeAttached();
 
   // js Cloudflare analytics scropt is presented on the page
   const jsCloudflareAnalyticsFile = page.locator(
-    'script[src="https://static.cloudflareinsights.com/beacon.min.js"]'
+    'script[src="https://static.cloudflareinsights.com/beacon.min.js"][defer]'
   );
   expect(jsCloudflareAnalyticsFile).toBeAttached();
 
@@ -381,13 +381,13 @@ test("/videos.html", async ({ page }) => {
 
   // js vercel analytics scropt is presented on the page
   const jsVercelAnalyticsScript = page.locator(
-    'script[src="/_vercel/insights/script.js"]'
+    'script[src="/_vercel/insights/script.js"][defer]'
   );
   expect(jsVercelAnalyticsScript).toBeAttached();
 
   // js Cloudflare analytics scropt is presented on the page
   const jsCloudflareAnalyticsFile = page.locator(
-    'script[src="https://static.cloudflareinsights.com/beacon.min.js"]'
+    'script[src="https://static.cloudflareinsights.com/beacon.min.js"][defer]'
   );
   expect(jsCloudflareAnalyticsFile).toBeAttached();
 

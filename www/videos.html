@@ -9,6 +9,21 @@
       href="https://cdn.jsdelivr.net/npm/@exampledev/new.css@1.1.2/new.min.css"
     /> -->
     <link href="./index.css" rel="stylesheet" />
+
+    <!-- Lite YouTube Embed: https://github.com/paulirish/lite-youtube-embed?tab=readme-ov-file#basic-usage -->
+    <script
+      defer
+      src="https://cdnjs.cloudflare.com/ajax/libs/lite-youtube-embed/0.3.2/lite-yt-embed.js"
+    ></script>
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/lite-youtube-embed/0.3.2/lite-yt-embed.css"
+      integrity="sha512-utq8YFW0J2abvPCECXM0zfICnIVpbEpW4lI5gl01cdJu+Ct3W6GQMszVITXMtBLJunnaTp6bbzk5pheKX2XuXQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+
     <link
       rel="icon"
       href="/assets/logo.ico"
@@ -18,11 +33,6 @@
     <title>Vlad Sazonau | Videos</title>
 
     <meta name="title" content="Videos" />
-    <!-- <meta
-      property="description"
-      content="Vlad Sazonau is a frontend/full-stack enthusiast."
-    /> -->
-
     <meta
       name="description"
       content="Vlad Sazonau personal website and blog. Vlad Sazonau is a frontend/full-stack enthusiast."
@@ -39,10 +49,10 @@
     />
     <meta
       property="og:image"
-      content="https://vldszn-cv.vercel.app/assets/og-videos.jpeg"
+      content="https://vladsazon.com/assets/og-videos.jpeg"
     />
     <meta property="og:site_name" content="Vlad Sazonau | Videos" />
-    <meta property="og:url" content="https://vldszn-cv.vercel.app" />
+    <meta property="og:url" content="https://vladsazon.com" />
 
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Videos" />
@@ -56,13 +66,20 @@
     />
     <meta
       name="twitter:image"
-      content="https://vldszn-cv.vercel.app/assets/og-videos.jpeg"
+      content="https://vladsazon.com/assets/og-videos.jpeg"
     />
 
     <style>
       iframe {
         max-width: 100%;
         background-color: lightgray;
+        inline-size: 100%;
+        block-size: auto;
+        aspect-ratio: 16 / 9;
+      }
+
+      lite-youtube {
+        margin-bottom: 24px;
       }
     </style>
   </head>
@@ -78,125 +95,178 @@
     <br />
 
     <div data-testid="videos-list">
-      <iframe
-        width="560"
-        height="315"
-        src="https://www.youtube.com/embed/l8pRSuU81PU?si=h4GAObbHJmIrkWtN"
-        title="YouTube video player"
-        frameborder="0"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-        referrerpolicy="strict-origin-when-cross-origin"
-        allowfullscreen
-        loading="lazy"
-      ></iframe>
+      <lite-youtube
+        videoid="l8pRSuU81PU"
+        style="
+          background-image: url('https://i.ytimg.com/vi/l8pRSuU81PU/sddefault.jpg');
+        "
+        title="Let's reproduce GPT-2 (124M)"
+      >
+        <a
+          href="https://youtube.com/watch?v=l8pRSuU81PU"
+          class="lty-playbtn"
+          title="Play Video"
+        >
+          <span class="lyt-visually-hidden">Let's reproduce GPT-2 (124M)</span>
+        </a>
+      </lite-youtube>
 
-      <iframe
-        width="560"
-        height="315"
-        src="https://www.youtube.com/embed/nNse0r0aRT8?si=mQRnShfCgHPEONzY"
-        title="YouTube video player"
-        frameborder="0"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-        referrerpolicy="strict-origin-when-cross-origin"
-        allowfullscreen
-        loading="lazy"
-      ></iframe>
+      <lite-youtube
+        videoid="nNse0r0aRT8"
+        style="
+          background-image: url('https://i.ytimg.com/vi/nNse0r0aRT8/sddefault.jpg');
+        "
+        title="Fun with advanced TypeScript"
+      >
+        <a
+          href="https://youtube.com/watch?v=nNse0r0aRT8"
+          class="lty-playbtn"
+          title="Play Video"
+        >
+          <span class="lyt-visually-hidden">Fun with advanced TypeScript</span>
+        </a>
+      </lite-youtube>
 
-      <iframe
-        width="560"
-        height="315"
-        src="https://www.youtube.com/embed/DUjRBaJM01E?si=RiiRTPo4DcXXWkoC"
-        title="YouTube video player"
-        frameborder="0"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-        referrerpolicy="strict-origin-when-cross-origin"
-        allowfullscreen
-        loading="lazy"
-      ></iframe>
+      <lite-youtube
+        videoid="DUjRBaJM01E"
+        style="
+          background-image: url('https://i.ytimg.com/vi/DUjRBaJM01E/sddefault.jpg');
+        "
+        title="it's Brainf**k , but types only"
+      >
+        <a
+          href="https://youtube.com/watch?v=DUjRBaJM01E"
+          class="lty-playbtn"
+          title="Play Video"
+        >
+          <span class="lyt-visually-hidden"
+            >it's Brainf**k , but types only
+          </span>
+        </a>
+      </lite-youtube>
 
-      <iframe
-        width="560"
-        height="315"
-        src="https://www.youtube.com/embed/JT30j4nhej4?si=LFemDYp1yS2jSy_k"
-        title="YouTube video player"
-        frameborder="0"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-        referrerpolicy="strict-origin-when-cross-origin"
-        allowfullscreen
-        loading="lazy"
-      ></iframe>
+      <lite-youtube
+        videoid="JT30j4nhej4"
+        style="
+          background-image: url('https://i.ytimg.com/vi/JT30j4nhej4/sddefault.jpg');
+        "
+        title="it's Wordle, but types only"
+      >
+        <a
+          href="https://youtube.com/watch?v=JT30j4nhej4"
+          class="lty-playbtn"
+          title="Play Video"
+        >
+          <span class="lyt-visually-hidden">it's Wordle, but types only </span>
+        </a>
+      </lite-youtube>
 
-      <iframe
-        width="560"
-        height="315"
-        src="https://www.youtube.com/embed/K77xThbu66A?si=Z0175ktwIokW1n2B"
-        title="YouTube video player"
-        frameborder="0"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-        referrerpolicy="strict-origin-when-cross-origin"
-        allowfullscreen
-        loading="lazy"
-      ></iframe>
+      <lite-youtube
+        videoid="K77xThbu66A"
+        style="
+          background-image: url('https://i.ytimg.com/vi/K77xThbu66A/sddefault.jpg');
+        "
+        title="let's write a Wordle clone in javascript (part 1)"
+      >
+        <a
+          href="https://youtube.com/watch?v=K77xThbu66A"
+          class="lty-playbtn"
+          title="Play Video"
+        >
+          <span class="lyt-visually-hidden"
+            >let's write a Wordle clone in javascript (part 1)
+          </span>
+        </a>
+      </lite-youtube>
 
-      <iframe
-        width="560"
-        height="315"
-        src="https://www.youtube.com/embed/dOXpkAmmahw?si=2sffFURk3snq8kwV"
-        title="YouTube video player"
-        frameborder="0"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-        referrerpolicy="strict-origin-when-cross-origin"
-        allowfullscreen
-        loading="lazy"
-      ></iframe>
+      <lite-youtube
+        videoid="dOXpkAmmahw"
+        style="
+          background-image: url('https://i.ytimg.com/vi/dOXpkAmmahw/sddefault.jpg');
+        "
+        title="StringTs with Guga Guichard | TypeScript Showcase #5"
+      >
+        <a
+          href="https://youtube.com/watch?v=dOXpkAmmahw"
+          class="lty-playbtn"
+          title="Play Video"
+        >
+          <span class="lyt-visually-hidden"
+            >StringTs with Guga Guichard | TypeScript Showcase #5
+          </span>
+        </a>
+      </lite-youtube>
 
-      <iframe
-        width="560"
-        height="315"
-        src="https://www.youtube.com/embed/cdOyOgwt9Zc?si=ouwq-aoEJj9uc33p"
-        title="YouTube video player"
-        frameborder="0"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-        referrerpolicy="strict-origin-when-cross-origin"
-        allowfullscreen
-        loading="lazy"
-      ></iframe>
+      <lite-youtube
+        videoid="cdOyOgwt9Zc"
+        style="
+          background-image: url('https://i.ytimg.com/vi/cdOyOgwt9Zc/sddefault.jpg');
+        "
+        title="React Suspense from scratch!"
+      >
+        <a
+          href="https://youtube.com/watch?v=cdOyOgwt9Zc"
+          class="lty-playbtn"
+          title="Play Video"
+        >
+          <span class="lyt-visually-hidden">React Suspense from scratch! </span>
+        </a>
+      </lite-youtube>
 
-      <iframe
-        width="560"
-        height="315"
-        src="https://www.youtube.com/embed/wjZofJX0v4M?si=alSMyrXn_N3C-xst"
-        title="YouTube video player"
-        frameborder="0"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-        referrerpolicy="strict-origin-when-cross-origin"
-        allowfullscreen
-        loading="lazy"
-      ></iframe>
+      <lite-youtube
+        videoid="wjZofJX0v4M"
+        style="
+          background-image: url('https://i.ytimg.com/vi/wjZofJX0v4M/sddefault.jpg');
+        "
+        title="But what is a GPT? Visual intro to transformers | Chapter 5, Deep Learning"
+      >
+        <a
+          href="https://youtube.com/watch?v=wjZofJX0v4M"
+          class="lty-playbtn"
+          title="Play Video"
+        >
+          <span class="lyt-visually-hidden"
+            >But what is a GPT? Visual intro to transformers | Chapter 5, Deep
+            Learning
+          </span>
+        </a>
+      </lite-youtube>
 
-      <iframe
-        width="560"
-        height="315"
-        src="https://www.youtube.com/embed/eiC58R16hb8?si=m7vYmXDiIXV1Ee4F"
-        title="YouTube video player"
-        frameborder="0"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-        referrerpolicy="strict-origin-when-cross-origin"
-        allowfullscreen
-        loading="lazy"
-      ></iframe>
+      <lite-youtube
+        videoid="eiC58R16hb8"
+        style="
+          background-image: url('https://i.ytimg.com/vi/eiC58R16hb8/sddefault.jpg');
+        "
+        title="JavaScript Visualized - Event Loop, Web APIs, (Micro)task Queue"
+      >
+        <a
+          href="https://youtube.com/watch?v=eiC58R16hb8"
+          class="lty-playbtn"
+          title="Play Video"
+        >
+          <span class="lyt-visually-hidden"
+            >JavaScript Visualized - Event Loop, Web APIs, (Micro)task Queue
+          </span>
+        </a>
+      </lite-youtube>
 
-      <iframe
-        width="560"
-        height="315"
-        src="https://www.youtube.com/embed/1e8VZlPBx_0?si=GW9c1xS-ZI9ZElvx"
-        title="YouTube video player"
-        frameborder="0"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-        referrerpolicy="strict-origin-when-cross-origin"
-        allowfullscreen
-        loading="lazy"
-      ></iframe>
+      <lite-youtube
+        videoid="1e8VZlPBx_0"
+        style="
+          background-image: url('https://i.ytimg.com/vi/1e8VZlPBx_0/sddefault.jpg');
+        "
+        title="How to Invent the Future II - Stanford CS183F: Startup School"
+      >
+        <a
+          href="https://youtube.com/watch?v=1e8VZlPBx_0"
+          class="lty-playbtn"
+          title="Play Video"
+        >
+          <span class="lyt-visually-hidden"
+            >How to Invent the Future II - Stanford CS183F: Startup School
+          </span>
+        </a>
+      </lite-youtube>
     </div>
 
     <br />

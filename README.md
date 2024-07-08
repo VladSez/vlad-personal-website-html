@@ -12,6 +12,7 @@ https://vercel.com/vladsazon27s-projects/html-cv
 
 ## Prod URL
 
+https://vladsazon.com
 https://vldszn-cv.vercel.app
 
 ## Link Management

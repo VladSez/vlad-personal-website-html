@@ -2,7 +2,7 @@
 import { test, expect } from "@playwright/test";
 import { PromisePool } from "@supercharge/promise-pool";
 
-const BASE_URL = process.env.BASE_URL || `https://vldszn-cv.vercel.app`;
+const BASE_URL = process.env.BASE_URL || `https://vladsazon.com`;
 
 test("/index.html", async ({ page }) => {
   // Go to the main page of the site (/index.html)
@@ -19,10 +19,12 @@ test("/index.html", async ({ page }) => {
     "Vlad Sazonau personal website and blog. Vlad Sazonau is a frontend/full-stack enthusiast."
   );
 
-  // css file link is presente in page
-  const cssFile = page.locator("link[rel=stylesheet]");
+  // css file link is presented on the page
+  const mainCssFile = page.locator(
+    'link[rel="stylesheet"][href="./index.css"]'
+  );
 
-  await expect(cssFile).toHaveAttribute("href", "./index.css");
+  expect(mainCssFile).toBeAttached();
 
   // open graph meta tags
   const ogTitle = page.locator('meta[property="og:title"]');
@@ -38,8 +40,7 @@ test("/index.html", async ({ page }) => {
     .locator('meta[property="og:image"]')
     .getAttribute("content");
 
-  const OG_IMAGE_INDEX_URL =
-    "https://vldszn-cv.vercel.app/assets/og-about-me.jpeg";
+  const OG_IMAGE_INDEX_URL = "https://vladsazon.com/assets/og-about-me.jpeg";
 
   expect(ogImageUrl).toBe(OG_IMAGE_INDEX_URL);
 
@@ -76,17 +77,7 @@ test("/index.html", async ({ page }) => {
   expect(twitterImageResponse?.status).toBe(200);
 
   // check nav bar
-  const mainLink = page.getByRole("link", { name: "Main" });
-  await expect(mainLink).toBeVisible();
-  await expect(mainLink).toHaveAttribute("href", "/index.html");
-
-  const linksLink = page.getByRole("link", { name: "Links" });
-  await expect(linksLink).toBeVisible();
-  await expect(linksLink).toHaveAttribute("href", "/links.html");
-
-  const videosLink = page.getByRole("link", { name: "Videos" });
-  await expect(videosLink).toBeVisible();
-  await expect(videosLink).toHaveAttribute("href", "/videos.html");
+  await checkNavLinks(page);
 
   // check heading
   await expect(page.getByRole("heading", { name: "About me" })).toBeVisible();
@@ -113,44 +104,7 @@ test("/index.html", async ({ page }) => {
   ).toBeVisible();
 
   // check footer
-  const footer = page.getByRole("contentinfo");
-  await expect(footer).toBeVisible();
-
-  const linkedInLinkFooter = footer.getByRole("link", { name: "LinkedIn" });
-  await expect(linkedInLinkFooter).toBeVisible();
-  await expect(linkedInLinkFooter).toHaveAttribute(
-    "href",
-    "https://dub.sh/vladsazon-linkedin"
-  );
-
-  const githubLinkFooter = footer.getByRole("link", { name: "GitHub" });
-  await expect(githubLinkFooter).toBeVisible();
-  await expect(githubLinkFooter).toHaveAttribute(
-    "href",
-    "https://git.new/vladsazon-github"
-  );
-
-  const cvLinkFooter = footer.getByRole("link", { name: "CV" });
-  await expect(cvLinkFooter).toBeVisible();
-  await expect(cvLinkFooter).toHaveAttribute("href", "https://dub.sh/vlad-cv");
-
-  const websiteSourceLinkFooter = footer.getByRole("link", {
-    name: "Website source",
-  });
-  await expect(websiteSourceLinkFooter).toBeVisible();
-  await expect(websiteSourceLinkFooter).toHaveAttribute(
-    "href",
-    "https://github.com/VladSez/html-cv"
-  );
-
-  const calComLink = footer.getByRole("link", {
-    name: "Schedule a call with me",
-  });
-  await expect(calComLink).toBeVisible();
-  await expect(calComLink).toHaveAttribute(
-    "href",
-    "https://cal.com/vladsazon/meet"
-  );
+  await checkFooterLinks(page);
 });
 
 test("/links.html", async ({ page }) => {
@@ -160,10 +114,12 @@ test("/links.html", async ({ page }) => {
   // Expect a title "to contain" a substring.
   await expect(page).toHaveTitle(/Vlad Sazonau | Links/);
 
-  // css file link is presente in page
-  const cssFile = page.locator("link[rel=stylesheet]");
+  // css file link is presented on the page
+  const mainCssFile = page.locator(
+    'link[rel="stylesheet"][href="./index.css"]'
+  );
 
-  await expect(cssFile).toHaveAttribute("href", "./index.css");
+  expect(mainCssFile).toBeAttached();
 
   // open graph meta tags
   const metaDescription = page.locator('meta[name="description"]');
@@ -181,8 +137,7 @@ test("/links.html", async ({ page }) => {
     "Vlad Sazonau personal website and blog. Links."
   );
 
-  const OG_IMAGE_LINKS_URL =
-    "https://vldszn-cv.vercel.app/assets/og-links.jpeg";
+  const OG_IMAGE_LINKS_URL = "https://vladsazon.com/assets/og-links.jpeg";
 
   const ogImageUrl = await page
     .locator('meta[property="og:image"]')
@@ -223,17 +178,7 @@ test("/links.html", async ({ page }) => {
   expect(twitterImageResponse?.status).toBe(200);
 
   // check nav bar
-  const mainLink = page.getByRole("link", { name: "Main" });
-  await expect(mainLink).toBeVisible();
-  await expect(mainLink).toHaveAttribute("href", "/index.html");
-
-  const linksLink = page.getByRole("link", { name: "Links" });
-  await expect(linksLink).toBeVisible();
-  await expect(linksLink).toHaveAttribute("href", "/links.html");
-
-  const videosLink = page.getByRole("link", { name: "Videos" });
-  await expect(videosLink).toBeVisible();
-  await expect(videosLink).toHaveAttribute("href", "/videos.html");
+  await checkNavLinks(page);
 
   await expect(page.getByRole("heading", { name: "Links" })).toBeVisible();
 
@@ -286,44 +231,7 @@ test("/links.html", async ({ page }) => {
   await expect(etcSectionHeading).toHaveAttribute("id", "etc");
 
   // check footer
-  const footer = page.getByRole("contentinfo");
-  await expect(footer).toBeVisible();
-
-  const linkedInLinkFooter = footer.getByRole("link", { name: "LinkedIn" });
-  await expect(linkedInLinkFooter).toBeVisible();
-  await expect(linkedInLinkFooter).toHaveAttribute(
-    "href",
-    "https://dub.sh/vladsazon-linkedin"
-  );
-
-  const githubLinkFooter = footer.getByRole("link", { name: "GitHub" });
-  await expect(githubLinkFooter).toBeVisible();
-  await expect(githubLinkFooter).toHaveAttribute(
-    "href",
-    "https://git.new/vladsazon-github"
-  );
-
-  const cvLinkFooter = footer.getByRole("link", { name: "CV" });
-  await expect(cvLinkFooter).toBeVisible();
-  await expect(cvLinkFooter).toHaveAttribute("href", "https://dub.sh/vlad-cv");
-
-  const websiteSourceLinkFooter = footer.getByRole("link", {
-    name: "Website source",
-  });
-  await expect(websiteSourceLinkFooter).toBeVisible();
-  await expect(websiteSourceLinkFooter).toHaveAttribute(
-    "href",
-    "https://github.com/VladSez/html-cv"
-  );
-
-  const calComLink = footer.getByRole("link", {
-    name: "Schedule a call with me",
-  });
-  await expect(calComLink).toBeVisible();
-  await expect(calComLink).toHaveAttribute(
-    "href",
-    "https://cal.com/vladsazon/meet"
-  );
+  await checkFooterLinks(page);
 });
 
 test("all links are valid on /links.html", async ({ page, request }) => {
@@ -443,10 +351,32 @@ test("/videos.html", async ({ page }) => {
   // Expect a title "to contain" a substring.
   await expect(page).toHaveTitle(/Vlad Sazonau | Videos/);
 
-  // css file link is presente in page
-  const cssFile = page.locator("link[rel=stylesheet]");
+  // css file link is presented on the page
+  const mainCssFile = page.locator(
+    'link[rel="stylesheet"][href="./index.css"]'
+  );
 
-  await expect(cssFile).toHaveAttribute("href", "./index.css");
+  expect(mainCssFile).toBeAttached();
+
+  const cssFileLiteYoutube = page
+    .locator('link[rel="stylesheet"]')
+    .and(
+      page.locator(
+        'link[href="https://cdnjs.cloudflare.com/ajax/libs/lite-youtube-embed/0.3.2/lite-yt-embed.css"]'
+      )
+    );
+
+  expect(cssFileLiteYoutube).toBeAttached();
+
+  const jsLiteYoutubeScript = page
+    .locator("script[defer]")
+    .and(
+      page.locator(
+        `script[src="https://cdnjs.cloudflare.com/ajax/libs/lite-youtube-embed/0.3.2/lite-yt-embed.js"]`
+      )
+    );
+
+  expect(jsLiteYoutubeScript).toBeAttached();
 
   // check open graph meta tags
   const metaDescription = page.locator('meta[name="description"]');
@@ -465,8 +395,7 @@ test("/videos.html", async ({ page }) => {
     "Vlad Sazonau personal website and blog. Videos."
   );
 
-  const OG_IMAGE_VIDEOS_URL =
-    "https://vldszn-cv.vercel.app/assets/og-videos.jpeg";
+  const OG_IMAGE_VIDEOS_URL = "https://vladsazon.com/assets/og-videos.jpeg";
 
   const ogImageUrl = await page
     .locator('meta[property="og:image"]')
@@ -507,69 +436,23 @@ test("/videos.html", async ({ page }) => {
   expect(twitterImageResponse?.status).toBe(200);
 
   // check nav bar
-  const mainLink = page.getByRole("link", { name: "Main" });
-  await expect(mainLink).toBeVisible();
-  await expect(mainLink).toHaveAttribute("href", "/index.html");
-
-  const linksLink = page.getByRole("link", { name: "Links" });
-  await expect(linksLink).toBeVisible();
-  await expect(linksLink).toHaveAttribute("href", "/links.html");
-
-  const videosLink = page.getByRole("link", { name: "Videos" });
-  await expect(videosLink).toBeVisible();
-  await expect(videosLink).toHaveAttribute("href", "/videos.html");
+  await checkNavLinks(page);
 
   // check heading
   await expect(page.getByRole("heading", { name: "Videos" })).toBeVisible();
 
-  const videosContainer = page.getByTestId("videos-list");
-  await expect(videosContainer).toBeVisible();
+  const firstVideoInContainer = page.getByTestId("videos-list").first();
+  // At least one item in the list is visible.
+  await expect(firstVideoInContainer).toBeVisible();
 
-  // check that youtube iframes are displayed on page
-  const youtubeIframes = page.locator("iframe[src*='youtube.com']");
+  // check that youtube videos are displayed on page
+  const youtubeVideos = page.locator("lite-youtube");
 
-  const videosCount = await youtubeIframes.count();
+  const videosCount = await youtubeVideos.count();
   expect(videosCount).toBeGreaterThan(0);
 
   // check footer
-  const footer = page.getByRole("contentinfo");
-  await expect(footer).toBeVisible();
-
-  const linkedInLinkFooter = footer.getByRole("link", { name: "LinkedIn" });
-  await expect(linkedInLinkFooter).toBeVisible();
-  await expect(linkedInLinkFooter).toHaveAttribute(
-    "href",
-    "https://dub.sh/vladsazon-linkedin"
-  );
-
-  const githubLinkFooter = footer.getByRole("link", { name: "GitHub" });
-  await expect(githubLinkFooter).toBeVisible();
-  await expect(githubLinkFooter).toHaveAttribute(
-    "href",
-    "https://git.new/vladsazon-github"
-  );
-
-  const cvLinkFooter = footer.getByRole("link", { name: "CV" });
-  await expect(cvLinkFooter).toBeVisible();
-  await expect(cvLinkFooter).toHaveAttribute("href", "https://dub.sh/vlad-cv");
-
-  const websiteSourceLinkFooter = footer.getByRole("link", {
-    name: "Website source",
-  });
-  await expect(websiteSourceLinkFooter).toBeVisible();
-  await expect(websiteSourceLinkFooter).toHaveAttribute(
-    "href",
-    "https://github.com/VladSez/html-cv"
-  );
-
-  const calComLink = footer.getByRole("link", {
-    name: "Schedule a call with me",
-  });
-  await expect(calComLink).toBeVisible();
-  await expect(calComLink).toHaveAttribute(
-    "href",
-    "https://cal.com/vladsazon/meet"
-  );
+  await checkFooterLinks(page);
 });
 
 test("check that link to my website is presented in my github profile", async ({
@@ -598,3 +481,64 @@ test("check that link to my website is presented in my github profile", async ({
     "https://dub.sh/vladsazon-web"
   );
 });
+
+const checkNavLinks = async (page) => {
+  const mainLink = page.getByRole("link", { name: "Main" });
+  await expect(mainLink).toBeVisible();
+  await expect(mainLink).toHaveAttribute("href", "/index.html");
+
+  const linksLink = page.getByRole("link", { name: "Links" });
+  await expect(linksLink).toBeVisible();
+  await expect(linksLink).toHaveAttribute("href", "/links.html");
+
+  const videosLink = page.getByRole("link", { name: "Videos" });
+  await expect(videosLink).toBeVisible();
+  await expect(videosLink).toHaveAttribute("href", "/videos.html");
+};
+
+const checkFooterLinks = async (page) => {
+  const footer = page.getByRole("contentinfo");
+  await expect(footer).toBeVisible();
+
+  const linkedInLinkFooter = footer.getByRole("link", { name: "LinkedIn" });
+  await expect(linkedInLinkFooter).toBeVisible();
+  await expect(linkedInLinkFooter).toHaveAttribute(
+    "href",
+    "https://dub.sh/vladsazon-linkedin"
+  );
+
+  await expect(linkedInLinkFooter).toHaveAttribute("target", "_blank");
+
+  const githubLinkFooter = footer.getByRole("link", { name: "GitHub" });
+  await expect(githubLinkFooter).toBeVisible();
+  await expect(githubLinkFooter).toHaveAttribute(
+    "href",
+    "https://git.new/vladsazon-github"
+  );
+  await expect(githubLinkFooter).toHaveAttribute("target", "_blank");
+
+  const cvLinkFooter = footer.getByRole("link", { name: "CV" });
+  await expect(cvLinkFooter).toBeVisible();
+  await expect(cvLinkFooter).toHaveAttribute("href", "https://dub.sh/vlad-cv");
+  await expect(cvLinkFooter).toHaveAttribute("target", "_blank");
+
+  const websiteSourceLinkFooter = footer.getByRole("link", {
+    name: "Website source",
+  });
+  await expect(websiteSourceLinkFooter).toBeVisible();
+  await expect(websiteSourceLinkFooter).toHaveAttribute(
+    "href",
+    "https://github.com/VladSez/html-cv"
+  );
+  await expect(websiteSourceLinkFooter).toHaveAttribute("target", "_blank");
+
+  const calComLink = footer.getByRole("link", {
+    name: "Schedule a call with me",
+  });
+  await expect(calComLink).toBeVisible();
+  await expect(calComLink).toHaveAttribute(
+    "href",
+    "https://cal.com/vladsazon/meet"
+  );
+  await expect(calComLink).toHaveAttribute("target", "_blank");
+};

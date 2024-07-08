@@ -2,7 +2,7 @@
 import { test, expect } from "@playwright/test";
 import { PromisePool } from "@supercharge/promise-pool";
 
-const BASE_URL = process.env.BASE_URL || `https://vldszn-cv.vercel.app`;
+const BASE_URL = process.env.BASE_URL || `https://vladsazon.com`;
 
 test("/index.html", async ({ page }) => {
   // Go to the main page of the site (/index.html)
@@ -40,8 +40,7 @@ test("/index.html", async ({ page }) => {
     .locator('meta[property="og:image"]')
     .getAttribute("content");
 
-  const OG_IMAGE_INDEX_URL =
-    "https://vldszn-cv.vercel.app/assets/og-about-me.jpeg";
+  const OG_IMAGE_INDEX_URL = "https://vladsazon.com/assets/og-about-me.jpeg";
 
   expect(ogImageUrl).toBe(OG_IMAGE_INDEX_URL);
 
@@ -138,8 +137,7 @@ test("/links.html", async ({ page }) => {
     "Vlad Sazonau personal website and blog. Links."
   );
 
-  const OG_IMAGE_LINKS_URL =
-    "https://vldszn-cv.vercel.app/assets/og-links.jpeg";
+  const OG_IMAGE_LINKS_URL = "https://vladsazon.com/assets/og-links.jpeg";
 
   const ogImageUrl = await page
     .locator('meta[property="og:image"]')
@@ -397,8 +395,7 @@ test("/videos.html", async ({ page }) => {
     "Vlad Sazonau personal website and blog. Videos."
   );
 
-  const OG_IMAGE_VIDEOS_URL =
-    "https://vldszn-cv.vercel.app/assets/og-videos.jpeg";
+  const OG_IMAGE_VIDEOS_URL = "https://vladsazon.com/assets/og-videos.jpeg";
 
   const ogImageUrl = await page
     .locator('meta[property="og:image"]')

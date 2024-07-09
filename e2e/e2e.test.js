@@ -12,30 +12,14 @@ test("/index.html", async ({ page }) => {
   // Expect a title "to contain" a substring.
   await expect(page).toHaveTitle(/Vlad Sazonau | About me/);
 
+  await checkThatAllScriptsAreAttached(page);
+
   // check open graph meta tags
   const metaDescription = page.locator('meta[name="description"]');
   await expect(metaDescription).toHaveAttribute(
     "content",
     "Vlad Sazonau personal website and blog. Vlad Sazonau is a frontend/full-stack enthusiast."
   );
-
-  // css file link is presented on the page
-  const mainCssFile = page.locator(
-    'link[rel="stylesheet"][href="./index.css"]'
-  );
-  expect(mainCssFile).toBeAttached();
-
-  // js vercel analytics scropt is presented on the page
-  const jsVercelAnalyticsScript = page.locator(
-    'script[src="/_vercel/insights/script.js"][defer]'
-  );
-  expect(jsVercelAnalyticsScript).toBeAttached();
-
-  // js Cloudflare analytics scropt is presented on the page
-  const jsCloudflareAnalyticsFile = page.locator(
-    'script[src="https://static.cloudflareinsights.com/beacon.min.js"][defer]'
-  );
-  expect(jsCloudflareAnalyticsFile).toBeAttached();
 
   // open graph meta tags
   const ogTitle = page.locator('meta[property="og:title"]');
@@ -125,23 +109,7 @@ test("/links.html", async ({ page }) => {
   // Expect a title "to contain" a substring.
   await expect(page).toHaveTitle(/Vlad Sazonau | Links/);
 
-  // css file link is presented on the page
-  const mainCssFile = page.locator(
-    'link[rel="stylesheet"][href="./index.css"]'
-  );
-  expect(mainCssFile).toBeAttached();
-
-  // js vercel analytics scropt is presented on the page
-  const jsVercelAnalyticsScript = page.locator(
-    'script[src="/_vercel/insights/script.js"][defer]'
-  );
-  expect(jsVercelAnalyticsScript).toBeAttached();
-
-  // js Cloudflare analytics scropt is presented on the page
-  const jsCloudflareAnalyticsFile = page.locator(
-    'script[src="https://static.cloudflareinsights.com/beacon.min.js"][defer]'
-  );
-  expect(jsCloudflareAnalyticsFile).toBeAttached();
+  await checkThatAllScriptsAreAttached(page);
 
   // open graph meta tags
   const metaDescription = page.locator('meta[name="description"]');
@@ -373,23 +341,7 @@ test("/videos.html", async ({ page }) => {
   // Expect a title "to contain" a substring.
   await expect(page).toHaveTitle(/Vlad Sazonau | Videos/);
 
-  // css file link is presented on the page
-  const mainCssFile = page.locator(
-    'link[rel="stylesheet"][href="./index.css"]'
-  );
-  expect(mainCssFile).toBeAttached();
-
-  // js vercel analytics scropt is presented on the page
-  const jsVercelAnalyticsScript = page.locator(
-    'script[src="/_vercel/insights/script.js"][defer]'
-  );
-  expect(jsVercelAnalyticsScript).toBeAttached();
-
-  // js Cloudflare analytics scropt is presented on the page
-  const jsCloudflareAnalyticsFile = page.locator(
-    'script[src="https://static.cloudflareinsights.com/beacon.min.js"][defer]'
-  );
-  expect(jsCloudflareAnalyticsFile).toBeAttached();
+  await checkThatAllScriptsAreAttached(page);
 
   const cssFileLiteYoutube = page
     .locator('link[rel="stylesheet"]')
@@ -515,6 +467,26 @@ test("check that link to my website is presented in my github profile", async ({
   );
 });
 
+test("check that prod domain is accessible", async ({ page }) => {
+  await page.goto("https://vladsazon.com");
+
+  await expect(page).toHaveURL(`https://vladsazon.com`);
+
+  // Expect a title "to contain" a substring.
+  await expect(page).toHaveTitle(/Vlad Sazonau | About me/);
+});
+
+test("check that www domain redirects to apex (without www)", async ({
+  page,
+}) => {
+  await page.goto("https://www.vladsazon.com");
+
+  await expect(page).toHaveURL(`https://vladsazon.com`);
+
+  // Expect a title "to contain" a substring.
+  await expect(page).toHaveTitle(/Vlad Sazonau | About me/);
+});
+
 const checkNavLinks = async (page) => {
   const mainLink = page.getByRole("link", { name: "Main" });
   await expect(mainLink).toBeVisible();
@@ -574,4 +546,24 @@ const checkFooterLinks = async (page) => {
     "https://cal.com/vladsazon/meet"
   );
   await expect(calComLink).toHaveAttribute("target", "_blank");
+};
+
+const checkThatAllScriptsAreAttached = async (page) => {
+  // css file link is presented on the page
+  const mainCssFile = page.locator(
+    'link[rel="stylesheet"][href="./index.css"]'
+  );
+  expect(mainCssFile).toBeAttached();
+
+  // js vercel analytics scropt is presented on the page
+  const jsVercelAnalyticsScript = page.locator(
+    'script[defer][src="/_vercel/insights/script.js"]'
+  );
+  expect(jsVercelAnalyticsScript).toBeAttached();
+
+  // js Cloudflare analytics scropt is presented on the page (we use it due to higher limits)
+  const jsCloudflareAnalyticsFile = page.locator(
+    'script[defer][src="https://static.cloudflareinsights.com/beacon.min.js"]'
+  );
+  expect(jsCloudflareAnalyticsFile).toBeAttached();
 };

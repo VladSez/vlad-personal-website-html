@@ -20,7 +20,11 @@
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/@exampledev/new.css@1.1.2/new.min.css"
     /> -->
+
+    <!-- https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/rel/preload -->
+    <link rel="preload" href="./index.css" as="style" />
     <link href="./index.css" rel="stylesheet" />
+
     <link
       rel="icon"
       href="/assets/logo.ico"
@@ -77,20 +81,35 @@
     <h1>About me</h1>
     <br />
     <p>
-      Hi! My name is Vlad. I am a frontend/full-stack engineer based in
+      Hi, I'm Vlad, a frontend/full-stack engineer based in
       <a href="https://en.wikipedia.org/wiki/Warsaw" target="_blank"
         >Warsaw, Poland.</a
       >
     </p>
+
     <p>
       I have 7+ years of experience creating modern web applications. Nowadays I
-      mainly use React, Next.js, TypeScript and Tailwind CSS. I like design, UX,
-      accessibility and open-source.
+      mainly use React, Next.js, TypeScript and Tailwind CSS. I like design
+      engineering, UX, accessibility and open-source. I am excited about AI and
+      building/shipping products.
+    </p>
+
+    <p>
+      I am collecting interesting <a href="/links.html">links</a> and
+      <a href="/videos.html">videos</a> on this website.
     </p>
     <p>
       For more information please check my
-      <a href="https://dub.sh/vlad-cv" target="_blank">CV</a> or
-      <a href="https://dub.sh/vladsazon-linkedin" target="_blank">LinkedIn</a>
+      <a href="https://dub.sh/vlad-cv" target="_blank" rel="noopener noreferrer"
+        >CV</a
+      >
+      or
+      <a
+        href="https://dub.sh/vladsazon-linkedin"
+        target="_blank"
+        rel="noopener noreferrer"
+        >LinkedIn</a
+      >
     </p>
 
     <br />

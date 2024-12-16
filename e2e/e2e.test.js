@@ -224,7 +224,10 @@ test("/links.html", async ({ page }) => {
   await checkFooterLinks(page);
 });
 
-test("all links are valid on /links.html", async ({ page, request }) => {
+test("all links are valid on /links.html and there are no duplicates", async ({
+  page,
+  request,
+}) => {
   await page.goto(`${BASE_URL}/links.html`);
   await expect(page).toHaveURL(`${BASE_URL}/links.html`);
 

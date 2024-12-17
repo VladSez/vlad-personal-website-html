@@ -491,15 +491,21 @@ test("check that www domain redirects to apex (without www)", async ({
 });
 
 const checkNavLinks = async (page) => {
-  const mainLink = page.getByRole("link", { name: "Main" });
+  const header = page.getByRole("banner");
+  await expect(header).toBeVisible();
+
+  const nav = header.getByRole("navigation");
+  await expect(nav).toBeVisible();
+
+  const mainLink = nav.getByRole("link", { name: "Main" });
   await expect(mainLink).toBeVisible();
   await expect(mainLink).toHaveAttribute("href", "/index.html");
 
-  const linksLink = page.getByRole("link", { name: "Links" });
+  const linksLink = nav.getByRole("link", { name: "Links" });
   await expect(linksLink).toBeVisible();
   await expect(linksLink).toHaveAttribute("href", "/links.html");
 
-  const videosLink = page.getByRole("link", { name: "Videos" });
+  const videosLink = nav.getByRole("link", { name: "Videos" });
   await expect(videosLink).toBeVisible();
   await expect(videosLink).toHaveAttribute("href", "/videos.html");
 };

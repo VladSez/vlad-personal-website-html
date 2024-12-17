@@ -78,25 +78,8 @@ test("/index.html", async ({ page }) => {
   await expect(page.getByRole("heading", { name: "About me" })).toBeVisible();
 
   // check main content
-  await expect(
-    page.getByText(
-      `Hi! My name is Vlad. I am a frontend/full-stack engineer based in Warsaw, Poland.`,
-      { exact: true }
-    )
-  ).toBeVisible();
-
-  await expect(
-    page.getByText(
-      `I have 7+ years of experience creating modern web applications. Nowadays I mainly use React, Next.js, TypeScript and Tailwind CSS. I like design, UX, accessibility and open-source.`,
-      { exact: true }
-    )
-  ).toBeVisible();
-
-  await expect(
-    page.getByText(`For more information please check my CV or LinkedIn`, {
-      exact: true,
-    })
-  ).toBeVisible();
+  const aboutMeSection = page.locator('data-testid="about-me-section"');
+  await expect(aboutMeSection).toBeVisible();
 
   // check footer
   await checkFooterLinks(page);

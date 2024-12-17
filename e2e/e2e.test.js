@@ -78,7 +78,7 @@ test("/index.html", async ({ page }) => {
   await expect(page.getByRole("heading", { name: "About me" })).toBeVisible();
 
   // check main content
-  const aboutMeSection = page.locator('data-testid="about-me-section"');
+  const aboutMeSection = page.getByTestId("about-me-section");
   await expect(aboutMeSection).toBeVisible();
 
   // check footer

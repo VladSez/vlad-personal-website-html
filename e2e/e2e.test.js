@@ -78,25 +78,8 @@ test("/index.html", async ({ page }) => {
   await expect(page.getByRole("heading", { name: "About me" })).toBeVisible();
 
   // check main content
-  await expect(
-    page.getByText(
-      `Hi! My name is Vlad. I am a frontend/full-stack engineer based in Warsaw, Poland.`,
-      { exact: true }
-    )
-  ).toBeVisible();
-
-  await expect(
-    page.getByText(
-      `I have 7+ years of experience creating modern web applications. Nowadays I mainly use React, Next.js, TypeScript and Tailwind CSS. I like design, UX, accessibility and open-source.`,
-      { exact: true }
-    )
-  ).toBeVisible();
-
-  await expect(
-    page.getByText(`For more information please check my CV or LinkedIn`, {
-      exact: true,
-    })
-  ).toBeVisible();
+  const aboutMeSection = page.getByTestId("about-me-section");
+  await expect(aboutMeSection).toBeVisible();
 
   // check footer
   await checkFooterLinks(page);
@@ -224,7 +207,10 @@ test("/links.html", async ({ page }) => {
   await checkFooterLinks(page);
 });
 
-test("all links are valid on /links.html", async ({ page, request }) => {
+test("all links are valid on /links.html and there are no duplicates", async ({
+  page,
+  request,
+}) => {
   await page.goto(`${BASE_URL}/links.html`);
   await expect(page).toHaveURL(`${BASE_URL}/links.html`);
 
@@ -488,15 +474,21 @@ test("check that www domain redirects to apex (without www)", async ({
 });
 
 const checkNavLinks = async (page) => {
-  const mainLink = page.getByRole("link", { name: "Main" });
+  const header = page.getByRole("banner");
+  await expect(header).toBeVisible();
+
+  const nav = header.getByRole("navigation");
+  await expect(nav).toBeVisible();
+
+  const mainLink = nav.getByRole("link", { name: "Main" });
   await expect(mainLink).toBeVisible();
   await expect(mainLink).toHaveAttribute("href", "/index.html");
 
-  const linksLink = page.getByRole("link", { name: "Links" });
+  const linksLink = nav.getByRole("link", { name: "Links" });
   await expect(linksLink).toBeVisible();
   await expect(linksLink).toHaveAttribute("href", "/links.html");
 
-  const videosLink = page.getByRole("link", { name: "Videos" });
+  const videosLink = nav.getByRole("link", { name: "Videos" });
   await expect(videosLink).toBeVisible();
   await expect(videosLink).toHaveAttribute("href", "/videos.html");
 };

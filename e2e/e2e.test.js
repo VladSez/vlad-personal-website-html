@@ -432,6 +432,7 @@ test("check that link to my website is presented in my github profile", async ({
   await page.goto("https://github.com/VladSez");
 
   await expect(page).toHaveURL(`https://github.com/VladSez`);
+  const dubLink = "https://dub.sh/vldzn.me";
 
   // Expect a title "to contain" a substring.
   await expect(page).toHaveTitle("VladSez (Vlad Sazonau) · GitHub");
@@ -443,14 +444,17 @@ test("check that link to my website is presented in my github profile", async ({
 
   const personalWebsiteLink = githubPersonalWebsiteUrlLocator.getByRole(
     "link",
-    { name: "https://dub.sh/vladsazon-web" }
+    { name: dubLink }
   );
 
   await expect(personalWebsiteLink).toBeVisible();
-  await expect(personalWebsiteLink).toHaveAttribute(
-    "href",
-    "https://dub.sh/vladsazon-web"
-  );
+  await expect(personalWebsiteLink).toHaveAttribute("href", dubLink);
+
+  await personalWebsiteLink.click();
+  await expect(page).toHaveURL("https://vladsazon.com");
+
+  // Expect a title "to contain" a substring.
+  await expect(page).toHaveTitle(/Vlad Sazonau | About me/);
 });
 
 test("check that prod domain is accessible", async ({ page }) => {

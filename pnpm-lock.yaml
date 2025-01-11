@@ -1,74 +1,85 @@
-lockfileVersion: '6.0'
+lockfileVersion: '9.0'
 
 settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
-dependencies:
-  '@supercharge/promise-pool':
-    specifier: 3.2.0
-    version: 3.2.0
-  '@vercel/edge':
-    specifier: 0.1.2
-    version: 0.1.2
+importers:
 
-devDependencies:
-  '@playwright/test':
-    specifier: 1.44.1
-    version: 1.44.1
-  '@types/node':
-    specifier: 20.14.8
-    version: 20.14.8
+  .:
+    dependencies:
+      '@supercharge/promise-pool':
+        specifier: 3.2.0
+        version: 3.2.0
+      '@vercel/edge':
+        specifier: 0.1.2
+        version: 0.1.2
+    devDependencies:
+      '@playwright/test':
+        specifier: 1.44.1
+        version: 1.44.1
+      '@types/node':
+        specifier: 20.14.8
+        version: 20.14.8
 
 packages:
 
-  /@playwright/test@1.44.1:
+  '@playwright/test@1.44.1':
     resolution: {integrity: sha512-1hZ4TNvD5z9VuhNJ/walIjvMVvYkZKf71axoF/uiAqpntQJXpG64dlXhoDXE3OczPuTuvjf/M5KWFg5VAVUS3Q==}
     engines: {node: '>=16'}
     hasBin: true
-    dependencies:
-      playwright: 1.44.1
-    dev: true
 
-  /@supercharge/promise-pool@3.2.0:
+  '@supercharge/promise-pool@3.2.0':
     resolution: {integrity: sha512-pj0cAALblTZBPtMltWOlZTQSLT07jIaFNeM8TWoJD1cQMgDB9mcMlVMoetiB35OzNJpqQ2b+QEtwiR9f20mADg==}
     engines: {node: '>=8'}
-    dev: false
 
-  /@types/node@20.14.8:
+  '@types/node@20.14.8':
     resolution: {integrity: sha512-DO+2/jZinXfROG7j7WKFn/3C6nFwxy2lLpgLjEXJz+0XKphZlTLJ14mo8Vfg8X5BWN6XjyESXq+LcYdT7tR3bA==}
-    dependencies:
-      undici-types: 5.26.5
-    dev: true
 
-  /@vercel/edge@0.1.2:
+  '@vercel/edge@0.1.2':
     resolution: {integrity: sha512-NmoJ4JvF2/LxU8e8fRJcxaMrO9A8a2WmW6CO9GEomlDltlREyQTUWMk13BuCDDpXUPcSBDrZ2TJIoWiFQEI4sg==}
-    dev: false
 
-  /fsevents@2.3.2:
+  fsevents@2.3.2:
     resolution: {integrity: sha512-xiqMQR4xAeHTuB9uWm+fFRcIOgKBMiOBP+eXiyT7jsgVCq1bkVygt00oASowB7EdtpOHaaPgKt812P9ab+DDKA==}
     engines: {node: ^8.16.0 || ^10.6.0 || >=11.0.0}
     os: [darwin]
-    requiresBuild: true
-    dev: true
-    optional: true
 
-  /playwright-core@1.44.1:
+  playwright-core@1.44.1:
     resolution: {integrity: sha512-wh0JWtYTrhv1+OSsLPgFzGzt67Y7BE/ZS3jEqgGBlp2ppp1ZDj8c+9IARNW4dwf1poq5MgHreEM2KV/GuR4cFA==}
     engines: {node: '>=16'}
     hasBin: true
-    dev: true
 
-  /playwright@1.44.1:
+  playwright@1.44.1:
     resolution: {integrity: sha512-qr/0UJ5CFAtloI3avF95Y0L1xQo6r3LQArLIg/z/PoGJ6xa+EwzrwO5lpNr/09STxdHuUoP2mvuELJS+hLdtgg==}
     engines: {node: '>=16'}
     hasBin: true
+
+  undici-types@5.26.5:
+    resolution: {integrity: sha512-JlCMO+ehdEIKqlFxk6IfVoAUVmgz7cU7zD/h9XZ0qzeosSHmUJVOzSQvvYSYWXkFXC+IfLKSIffhv0sVZup6pA==}
+
+snapshots:
+
+  '@playwright/test@1.44.1':
+    dependencies:
+      playwright: 1.44.1
+
+  '@supercharge/promise-pool@3.2.0': {}
+
+  '@types/node@20.14.8':
+    dependencies:
+      undici-types: 5.26.5
+
+  '@vercel/edge@0.1.2': {}
+
+  fsevents@2.3.2:
+    optional: true
+
+  playwright-core@1.44.1: {}
+
+  playwright@1.44.1:
     dependencies:
       playwright-core: 1.44.1
     optionalDependencies:
       fsevents: 2.3.2
-    dev: true
 
-  /undici-types@5.26.5:
-    resolution: {integrity: sha512-JlCMO+ehdEIKqlFxk6IfVoAUVmgz7cU7zD/h9XZ0qzeosSHmUJVOzSQvvYSYWXkFXC+IfLKSIffhv0sVZup6pA==}
-    dev: true
+  undici-types@5.26.5: {}

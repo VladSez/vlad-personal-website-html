@@ -18,7 +18,7 @@ test("/index.html", async ({ page }) => {
   const metaDescription = page.locator('meta[name="description"]');
   await expect(metaDescription).toHaveAttribute(
     "content",
-    "Vlad Sazonau personal website and blog. Vlad Sazonau is a frontend/full-stack enthusiast."
+    "Vlad Sazonau personal website and blog. Vlad Sazonau is a frontend/full-stack developer and enthusiast."
   );
 
   // open graph meta tags
@@ -98,7 +98,7 @@ test("/links.html", async ({ page }) => {
   const metaDescription = page.locator('meta[name="description"]');
   await expect(metaDescription).toHaveAttribute(
     "content",
-    "Vlad Sazonau personal website and blog. Vlad Sazonau is a frontend/full-stack enthusiast."
+    "Vlad Sazonau personal website and blog. Vlad Sazonau is a frontend/full-stack developer and enthusiast."
   );
 
   const ogTitle = page.locator('meta[property="og:title"]');
@@ -353,7 +353,7 @@ test("/videos.html", async ({ page }) => {
   const metaDescription = page.locator('meta[name="description"]');
   await expect(metaDescription).toHaveAttribute(
     "content",
-    "Vlad Sazonau personal website and blog. Vlad Sazonau is a frontend/full-stack enthusiast."
+    "Vlad Sazonau personal website and blog. Vlad Sazonau is a frontend/full-stack developer and enthusiast."
   );
 
   // open graph meta tags

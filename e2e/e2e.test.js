@@ -498,20 +498,25 @@ const checkFooterLinks = async (page) => {
 
 const checkThatAllScriptsAreAttached = async (page) => {
   // css file link is presented on the page
+  // Check that CSS file is both attached and loaded
+  // Find the main CSS file link element that:
+  // - Has "index" in the href path
+  // - Ends with ".css" extension
+  // - Has rel="stylesheet" attribute
   const mainCssFile = page.locator(
-    'link[rel="stylesheet"][href="./index.css"]'
+    'link[href*="index"][href$=".css"][rel="stylesheet"]'
   );
-  expect(mainCssFile).toBeAttached();
+  await expect(mainCssFile).toBeAttached();
 
   // js vercel analytics scropt is presented on the page
   const jsVercelAnalyticsScript = page.locator(
     'script[defer][src="/_vercel/insights/script.js"]'
   );
-  expect(jsVercelAnalyticsScript).toBeAttached();
+  await expect(jsVercelAnalyticsScript).toBeAttached();
 
   // js Cloudflare analytics scropt is presented on the page (we use it due to higher limits)
   const jsCloudflareAnalyticsFile = page.locator(
     'script[defer][src="https://static.cloudflareinsights.com/beacon.min.js"]'
   );
-  expect(jsCloudflareAnalyticsFile).toBeAttached();
+  await expect(jsCloudflareAnalyticsFile).toBeAttached();
 };

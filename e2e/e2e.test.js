@@ -4,6 +4,7 @@ import { PromisePool } from "@supercharge/promise-pool";
 
 const BASE_URL = process.env.BASE_URL ?? `http://localhost:3000`;
 
+// main page
 test("/index.html", async ({ page }) => {
   // Go to the main page of the site (/index.html)
   await page.goto(BASE_URL);

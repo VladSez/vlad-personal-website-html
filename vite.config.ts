@@ -1,7 +1,7 @@
 import { resolve } from "path";
 import { defineConfig } from "vite";
 
-const BASE_URL = process.env.VERCEL_URL ?? "http://localhost:3000";
+const BASE_URL = `https://${process.env.VERCEL_URL ?? "http://localhost:3000"}`;
 
 export default defineConfig({
   root: "www",

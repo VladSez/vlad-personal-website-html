@@ -1,5 +1,6 @@
 {
   "private": true,
+  "type": "module",
   "dependencies": {
     "@supercharge/promise-pool": "3.2.0",
     "@vercel/edge": "1.2.1"
@@ -16,6 +17,6 @@
     "update-deps": "pnpm upgrade --interactive --latest",
     "dev": "npx vite www --port 3000",
     "build": "npx vite build",
-    "preview": "npx vite preview"
+    "preview": "npx vite preview --port 3000"
   }
 }

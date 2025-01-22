@@ -1,8 +1,11 @@
 import { resolve } from "path";
 import { defineConfig } from "vite";
 
+const BASE_URL = process.env.VERCEL_URL ?? "http://localhost:3000";
+
 export default defineConfig({
   root: "www",
+  base: BASE_URL,
   build: {
     outDir: "dist",
     rollupOptions: {

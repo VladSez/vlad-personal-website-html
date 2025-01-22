@@ -1,6 +1,10 @@
 // @ts-check
 const { defineConfig, devices } = require("@playwright/test");
 
+// Set webServer.url and use.baseURL with the location of the WebServer respecting the correct set port
+const baseURL = process.env.BASE_URL ?? `http://localhost:3000`;
+
+/**
 /**
  * @see https://playwright.dev/docs/test-configuration
  */
@@ -21,7 +25,7 @@ module.exports = defineConfig({
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     /* Base URL to use in actions like `await page.goto('/')`. */
-    // baseURL: 'http://127.0.0.1:3000',
+    baseURL: baseURL,
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: "on-first-retry",
@@ -34,4 +38,16 @@ module.exports = defineConfig({
       use: { ...devices["Desktop Chrome"] },
     },
   ],
+
+  // Run your local dev server before starting the tests.
+  // https://playwright.dev/docs/test-advanced#launching-a-development-web-server-during-the-tests
+  // on CI we don't need to start the server, because we use vercel preview url to run the tests
+  ...(!process.env.CI && {
+    webServer: {
+      command: "pnpm run dev",
+      url: baseURL,
+      reuseExistingServer: !process.env.CI,
+      timeout: 120 * 1000, // Add timeout for slow starts
+    },
+  }),
 });

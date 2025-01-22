@@ -2,7 +2,7 @@
 import { test, expect } from "@playwright/test";
 import { PromisePool } from "@supercharge/promise-pool";
 
-const BASE_URL = process.env.VERCEL_URL ?? `http://localhost:3000`;
+const BASE_URL = process.env.BASE_URL ?? `http://localhost:3000`;
 
 test("/index.html", async ({ page }) => {
   // Go to the main page of the site (/index.html)

@@ -14,8 +14,8 @@
     "test:e2e-ui": "playwright test --ui",
     "test:e2e-update-playwright": "pnpm exec playwright install",
     "update-deps": "pnpm upgrade --interactive --latest",
-    "dev": "npx vite www --port 3000",
+    "dev": "npx vite www --port 3000 --open",
     "build": "npx vite build",
-    "preview": "npx vite preview --port 3000"
+    "preview": "npx vite www preview --port 3000"
   }
 }

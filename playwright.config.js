@@ -2,7 +2,7 @@
 const { defineConfig, devices } = require("@playwright/test");
 
 // Set webServer.url and use.baseURL with the location of the WebServer respecting the correct set port
-const baseURL = process.env.BASE_URL ?? `http://localhost:3000`;
+const baseURL = process.env.VERCEL_URL ?? `http://localhost:3000`;
 
 /**
 /**

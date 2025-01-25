@@ -16,6 +16,6 @@
     "update-deps": "pnpm upgrade --interactive --latest",
     "dev": "npx vite www --port 3000 --open",
     "build": "npx vite build",
-    "preview": "npx vite www preview --port 3000"
+    "preview": "npx vite www preview --port 3000 --open"
   }
 }

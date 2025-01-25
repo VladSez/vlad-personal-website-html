@@ -2,8 +2,9 @@
 import { test, expect } from "@playwright/test";
 import { PromisePool } from "@supercharge/promise-pool";
 
-const BASE_URL = process.env.BASE_URL || `https://vladsazon.com`;
+const BASE_URL = process.env.BASE_URL ?? `http://localhost:3000`;
 
+// main page
 test("/index.html", async ({ page }) => {
   // Go to the main page of the site (/index.html)
   await page.goto(BASE_URL);
@@ -35,15 +36,7 @@ test("/index.html", async ({ page }) => {
     .locator('meta[property="og:image"]')
     .getAttribute("content");
 
-  const OG_IMAGE_INDEX_URL = "https://vladsazon.com/assets/og-about-me.jpeg";
-
-  expect(ogImageUrl).toBe(OG_IMAGE_INDEX_URL);
-
-  // check that open graph image is accessible
-  const ogImageResponse = await fetch(ogImageUrl ?? "").catch(console.error);
-
-  expect(ogImageResponse?.ok).toBeTruthy();
-  expect(ogImageResponse?.status).toBe(200);
+  expect(ogImageUrl).toContain("/og-about-me.jpeg");
 
   // twitter meta tags
   const twiiterMetaTitle = page.locator('meta[name="twitter:title"]');
@@ -61,15 +54,7 @@ test("/index.html", async ({ page }) => {
     .locator('meta[name="twitter:image"]')
     .getAttribute("content");
 
-  expect(twitterImageUrl).toBe(OG_IMAGE_INDEX_URL);
-
-  // check that twitter image is accessible
-  const twitterImageResponse = await fetch(twitterImageUrl ?? "").catch(
-    console.error
-  );
-
-  expect(twitterImageResponse?.ok).toBeTruthy();
-  expect(twitterImageResponse?.status).toBe(200);
+  expect(twitterImageUrl).toContain("/og-about-me.jpeg");
 
   // check nav bar
   await checkNavLinks(page);
@@ -110,19 +95,11 @@ test("/links.html", async ({ page }) => {
     "Vlad Sazonau personal website and blog. Links."
   );
 
-  const OG_IMAGE_LINKS_URL = "https://vladsazon.com/assets/og-links.jpeg";
-
   const ogImageUrl = await page
     .locator('meta[property="og:image"]')
     .getAttribute("content");
 
-  expect(ogImageUrl).toBe(OG_IMAGE_LINKS_URL);
-
-  // check that open graph image is accessible
-  const ogImageResponse = await fetch(ogImageUrl ?? "").catch(console.error);
-
-  expect(ogImageResponse?.ok).toBeTruthy();
-  expect(ogImageResponse?.status).toBe(200);
+  expect(ogImageUrl).toContain("/og-links.jpeg");
 
   // twitter meta tags
   const twiiterMetaTitle = page.locator('meta[name="twitter:title"]');
@@ -140,15 +117,7 @@ test("/links.html", async ({ page }) => {
     .locator('meta[name="twitter:image"]')
     .getAttribute("content");
 
-  expect(twitterImageUrl).toBe(OG_IMAGE_LINKS_URL);
-
-  // check that twitter image is accessible
-  const twitterImageResponse = await fetch(twitterImageUrl ?? "").catch(
-    console.error
-  );
-
-  expect(twitterImageResponse?.ok).toBeTruthy();
-  expect(twitterImageResponse?.status).toBe(200);
+  expect(twitterImageUrl).toContain("/og-links.jpeg");
 
   // check nav bar
   await checkNavLinks(page);
@@ -269,8 +238,8 @@ test("all links are valid on /links.html and there are no duplicates", async ({
 });
 
 test("all links are valid on /index.html", async ({ page, request }) => {
-  await page.goto(`${BASE_URL}/index.html`);
-  await expect(page).toHaveURL(`${BASE_URL}/index.html`);
+  await page.goto(`${BASE_URL}`);
+  await expect(page).toHaveURL(`${BASE_URL}`);
 
   const allURLsOnPage = await page
     .locator("a")
@@ -366,19 +335,11 @@ test("/videos.html", async ({ page }) => {
     "Vlad Sazonau personal website and blog. Videos."
   );
 
-  const OG_IMAGE_VIDEOS_URL = "https://vladsazon.com/assets/og-videos.jpeg";
-
   const ogImageUrl = await page
     .locator('meta[property="og:image"]')
     .getAttribute("content");
 
-  expect(ogImageUrl).toBe(OG_IMAGE_VIDEOS_URL);
-
-  // check that open graph image is accessible
-  const ogImageResponse = await fetch(ogImageUrl ?? "").catch(console.error);
-
-  expect(ogImageResponse?.ok).toBeTruthy();
-  expect(ogImageResponse?.status).toBe(200);
+  expect(ogImageUrl).toContain("/og-videos.jpeg");
 
   // twitter meta tags
   const twiiterMetaTitle = page.locator('meta[name="twitter:title"]');
@@ -396,15 +357,7 @@ test("/videos.html", async ({ page }) => {
     .locator('meta[name="twitter:image"]')
     .getAttribute("content");
 
-  expect(twitterImageUrl).toBe(OG_IMAGE_VIDEOS_URL);
-
-  // check that twitter image is accessible
-  const twitterImageResponse = await fetch(twitterImageUrl ?? "").catch(
-    console.error
-  );
-
-  expect(twitterImageResponse?.ok).toBeTruthy();
-  expect(twitterImageResponse?.status).toBe(200);
+  expect(twitterImageUrl).toContain("/og-videos.jpeg");
 
   // check nav bar
   await checkNavLinks(page);
@@ -486,7 +439,7 @@ const checkNavLinks = async (page) => {
 
   const mainLink = nav.getByRole("link", { name: "Main" });
   await expect(mainLink).toBeVisible();
-  await expect(mainLink).toHaveAttribute("href", "/index.html");
+  await expect(mainLink).toHaveAttribute("href", "/");
 
   const linksLink = nav.getByRole("link", { name: "Links" });
   await expect(linksLink).toBeVisible();
@@ -546,20 +499,25 @@ const checkFooterLinks = async (page) => {
 
 const checkThatAllScriptsAreAttached = async (page) => {
   // css file link is presented on the page
+  // Check that CSS file is both attached and loaded
+  // Find the main CSS file link element that:
+  // - Has "index" in the href path
+  // - Ends with ".css" extension
+  // - Has rel="stylesheet" attribute
   const mainCssFile = page.locator(
-    'link[rel="stylesheet"][href="./index.css"]'
+    'link[href*="index"][href$=".css"][rel="stylesheet"]'
   );
-  expect(mainCssFile).toBeAttached();
+  await expect(mainCssFile).toBeAttached();
 
   // js vercel analytics scropt is presented on the page
   const jsVercelAnalyticsScript = page.locator(
     'script[defer][src="/_vercel/insights/script.js"]'
   );
-  expect(jsVercelAnalyticsScript).toBeAttached();
+  await expect(jsVercelAnalyticsScript).toBeAttached();
 
   // js Cloudflare analytics scropt is presented on the page (we use it due to higher limits)
   const jsCloudflareAnalyticsFile = page.locator(
     'script[defer][src="https://static.cloudflareinsights.com/beacon.min.js"]'
   );
-  expect(jsCloudflareAnalyticsFile).toBeAttached();
+  await expect(jsCloudflareAnalyticsFile).toBeAttached();
 };

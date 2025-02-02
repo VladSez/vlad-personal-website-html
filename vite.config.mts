@@ -1,7 +1,10 @@
 import { resolve } from "path";
 import { defineConfig } from "vite";
 
-const BASE_URL = `https://${process.env.VERCEL_URL ?? "vladsazon.com/assets"}`;
+const BASE_URL =
+  process.env.VERCEL_ENV === "production"
+    ? "https://vladsazon.com/"
+    : `https://${process.env.VERCEL_URL}`;
 
 export default defineConfig({
   root: "www",

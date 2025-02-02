@@ -2,6 +2,11 @@
 User-agent: *
 Allow: /
 
+# we allow only https://vladsazon.com/ to be indexed
+Disallow: https://www.vladsazon.com/
+Disallow: http://www.vladsazon.com/
+Disallow: http://vladsazon.com/
+
 
 # Sitemap location
 Sitemap: https://vladsazon.com/sitemap.xml

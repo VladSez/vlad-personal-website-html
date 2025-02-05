@@ -30,3 +30,7 @@ https://github.com/VladSez/html-cv
 ## Open Status (website monitor)
 
 https://www.openstatus.dev/app/early-lifeguard/monitors/3708/overview
+
+## Image CDN
+
+https://imagekit.io/dashboard/media-library
